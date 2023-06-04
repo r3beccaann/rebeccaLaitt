@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="libs/css/bootstrap.min.css" rel="stylesheet">
+  <link href="libs/css/app.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar bg-body-tertiary">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">GEONAMES</span>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">API Name</th>
+          <th scope="col" colspan="2">API Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>TIMEZONE</td>
+          <td><select class="form-select" aria-label="Default select example">
+              <option selected>SELECT COUNTRY</option>
+              <option value="1">Great Britain</option>
+              <option value="2">USA</option>
+              <option value="3">France</option>
+            </select></td>
+          <td><button type="button" class="btn btn-dark">Submit</button></td>
+        </tr>
+        <tr>
+          <td>WEATHER</td>
+          <td>
+            <label for="form-control">North</label>
+            <input class="form-control coords" type="text" aria-label="default input example">
+            <label for="form-control">East</label>
+            <input class="form-control coords" type="text"  aria-label="default input example">
+            <label for="form-control">South</label>
+            <input class="form-control coords" type="text"  aria-label="default input example">
+            <label for="form-control">West</label>
+            <input class="form-control coords" type="text"  aria-label="default input example">
+          </td>
+          <td><button type="button" class="btn btn-dark btn2">Submit</button></td>
+        </tr>
+        <tr>
+          <td>EARTHQUAKES</td>
+          <td>
+            <label for="form-control">North</label>
+            <input class="form-control coords" type="text"  aria-label="default input example">
+            <label for="form-control">East</label>
+            <input class="form-control coords" type="text"  aria-label="default input example">
+            <label for="form-control">South</label>
+            <input class="form-control coords" type="text"  aria-label="default input example">
+            <label for="form-control">West</label>
+            <input class="form-control coords" type="text"  aria-label="default input example">
+          </td>
+          <td><button type="button" class="btn btn-dark btn2">Submit</button></td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+
+</html>
