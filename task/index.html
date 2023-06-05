@@ -77,13 +77,13 @@
                 </tr>
                 <tr>
                     <td>TIMEZONE</td>
-                    <td><select class="form-select" aria-label="Default select example">
-                            <option selected>SELECT COUNTRY</option>
-                            <option value="1">Great Britain</option>
-                            <option value="2">USA</option>
-                            <option value="3">France</option>
-                        </select></td>
-                    <td><button type="button" class="btn btn-dark">Submit</button></td>
+                    <td> <label for="latInputT">Latitude</label>
+                        <input class="form-control coords" id="latInputT" type="text"
+                            aria-label="default input example" value="47.01">
+                        <label for="lngInputT">Longitude</label>
+                        <input class="form-control coords" id="lngInputT" type="text"
+                            aria-label="default input example" value="10.2"></td>
+                    <td><button type="button" class="btn btn-dark" id="timezoneSubmit">Submit</button></td>
                 </tr>
                 
             </tbody>
@@ -179,33 +179,36 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         <tr>
-                            <td>Time and Date</td>
-                            <td>Data</td>
+                            <td colspan="2">Description</td>
+                        </tr>
+                        <tr>
+                            <td id="rowOneHeadingT"></td>
+                            <td id="rowOneResultT"></td>
                         </tr>
 
                         <tr>
-                            <td>Sunrise</td>
-                            <td>Data</td>
+                            <td id="rowTwoHeadingT"></td>
+                            <td id="rowTwoResultT"></td>
                         </tr>
 
                         <tr>
-                            <td>Sunset</td>
-                            <td>Data</td>
+                            <td id="rowThreeHeadingT"></td>
+                            <td id="rowThreeResultT"></td>
                         </tr>
 
                         <tr>
-                            <td>Longitude</td>
-                            <td>Data</td>
+                            <td id="rowFourHeadingT"></td>
+                            <td id="rowFourResultT"></td>
                         </tr>
 
                         <tr>
-                            <td>Latitude</td>
-                            <td>Data</td>
+                            <td id="rowFiveHeadingT"></td>
+                            <td id="rowFiveResultT"></td>
                         </tr>
 
                     </tbody>
+                   
                 </table>
             </div>
         </div>

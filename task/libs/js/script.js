@@ -82,3 +82,39 @@ $('#weatherSubmit').click(function () {
     });
 
 });
+
+$('#timezoneSubmit').click(function () {
+
+    $.ajax({
+        url: "libs/php/timezone.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            lat: $('#latInputT').val(),
+            lng: $('#lngInputT').val()
+        },
+        success: function (result) {
+
+            console.log(JSON.stringify(result));
+
+            if (result.status.name == "ok") {
+
+                $('#rowOneHeadingT').html('Country Name:');
+                $('#rowTwoHeadingT').html('Country Code:');
+                $('#rowThreeHeadingT').html('Sunrise:');
+                $('#rowFourHeadingT').html('Sunset:');
+                $('#rowFiveHeadingT').html('GMT Offset:');
+                $('#rowOneResultT').html(result['data']['countryName']);
+                $('#rowTwoResultT').html(result['data']['countryCode']);
+                $('#rowThreeResultT').html(result['data']['sunrise']);
+                $('#rowFourResultT').html(result['data']['sunset']);
+                $('#rowFiveResultT').html(result['data']['gmtOffset']);
+            }
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+        }
+    });
+
+});
