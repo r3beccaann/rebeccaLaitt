@@ -36,34 +36,6 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>TIMEZONE</td>
-                    <td><select class="form-select" aria-label="Default select example">
-                            <option selected>SELECT COUNTRY</option>
-                            <option value="1">Great Britain</option>
-                            <option value="2">USA</option>
-                            <option value="3">France</option>
-                        </select></td>
-                    <td><button type="button" class="btn btn-dark">Submit</button></td>
-                </tr>
-                <tr>
-                    <td>WEATHER</td>
-                    <td>
-                        <label for="northInputW">North</label>
-                        <input class="form-control coords" id="northInputW" type="text"
-                            aria-label="default input example" value="44.1">
-                        <label for="eastInputW">East</label>
-                        <input class="form-control coords" id="eastInputW" type="text"
-                            aria-label="default input example" value="-22.4">
-                        <label for="southInputW">South</label>
-                        <input class="form-control coords" id="southInputW" type="text"
-                            aria-label="default input example" value="-9.9">
-                        <label for="westInputW">West</label>
-                        <input class="form-control coords" id="westInputW" type="text"
-                            aria-label="default input example" value="55.2">
-                    </td>
-                    <td><button type="button" class="btn btn-dark btn2">Submit</button></td>
-                </tr>
-                <tr>
                     <td>EARTHQUAKES</td>
                     <td>
                         <form>
@@ -84,6 +56,36 @@
                     <td><button type="button" class="btn btn-dark btn2" id="earthquakeSubmit">Submit</button></td>
 
                 </tr>
+
+                <tr>
+                    <td>WEATHER</td>
+                    <td>
+                        <label for="northInputW">North</label>
+                        <input class="form-control coords" id="northInputW" type="text"
+                            aria-label="default input example" value="44.1">
+                        <label for="eastInputW">East</label>
+                        <input class="form-control coords" id="eastInputW" type="text"
+                            aria-label="default input example" value="-22.4">
+                        <label for="southInputW">South</label>
+                        <input class="form-control coords" id="southInputW" type="text"
+                            aria-label="default input example" value="-9.9">
+                        <label for="westInputW">West</label>
+                        <input class="form-control coords" id="westInputW" type="text"
+                            aria-label="default input example" value="55.2">
+                    </td>
+                    <td><button type="button" class="btn btn-dark btn2" id="weatherSubmit">Submit</button></td>
+                </tr>
+                <tr>
+                    <td>TIMEZONE</td>
+                    <td><select class="form-select" aria-label="Default select example">
+                            <option selected>SELECT COUNTRY</option>
+                            <option value="1">Great Britain</option>
+                            <option value="2">USA</option>
+                            <option value="3">France</option>
+                        </select></td>
+                    <td><button type="button" class="btn btn-dark">Submit</button></td>
+                </tr>
+                
             </tbody>
         </table>
     </div>
@@ -98,30 +100,32 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         <tr>
-                            <td id="rowOneHeading"></td>
-                            <td id="rowOneResult"></td>
+                            <td colspan="2">Description</td>
+                        </tr>
+                        <tr>
+                            <td id="rowOneHeadingE"></td>
+                            <td id="rowOneResultE"></td>
                         </tr>
 
                         <tr>
-                            <td id="rowTwoHeading"></td>
-                            <td id="rowTwoResult"></td>
+                            <td id="rowTwoHeadingE"></td>
+                            <td id="rowTwoResultE"></td>
                         </tr>
 
                         <tr>
-                            <td id="rowThreeHeading"></td>
-                            <td id="rowThreeResult"></td>
+                            <td id="rowThreeHeadingE"></td>
+                            <td id="rowThreeResultE"></td>
                         </tr>
 
                         <tr>
-                            <td id="rowFourHeading"></td>
-                            <td id="rowFourResult"></td>
+                            <td id="rowFourHeadingE"></td>
+                            <td id="rowFourResultE"></td>
                         </tr>
 
                         <tr>
-                            <td id="rowFiveHeading"></td>
-                            <td id="rowFiveResult"></td>
+                            <td id="rowFiveHeadingE"></td>
+                            <td id="rowFiveResultE"></td>
                         </tr>
 
                     </tbody>
@@ -136,30 +140,32 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         <tr>
-                            <td>Date and Time</td>
-                            <td>Data</td>
+                            <td colspan="2">Description</td>
+                        </tr>
+                        <tr>
+                            <td id="rowOneHeadingW"></td>
+                            <td id="rowOneResultW"></td>
                         </tr>
 
                         <tr>
-                            <td>Temperature</td>
-                            <td>Data</td>
+                            <td id="rowTwoHeadingW"></td>
+                            <td id="rowTwoResultW"></td>
                         </tr>
 
                         <tr>
-                            <td>Humidity</td>
-                            <td>Data</td>
+                            <td id="rowThreeHeadingW"></td>
+                            <td id="rowThreeResultW"></td>
                         </tr>
 
                         <tr>
-                            <td>Longitude</td>
-                            <td>Data</td>
+                            <td id="rowFourHeadingW"></td>
+                            <td id="rowFourResultW"></td>
                         </tr>
 
                         <tr>
-                            <td>Latitude</td>
-                            <td>Data</td>
+                            <td id="rowFiveHeadingW"></td>
+                            <td id="rowFiveResultW"></td>
                         </tr>
 
                     </tbody>
