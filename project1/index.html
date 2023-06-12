@@ -1,1 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAZETTEER</title>
 
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tsukimi+Rounded:wght@700&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+<!-- favicon -->
+<link href="Logo.png" rel="icon">
+
+    <!-- stylesheets -->
+
+    
+    <!-- leaflet styles -->
+    <link href="libs/css/leaflet.css" rel="stylesheet">
+    <link href="libs/css/font-awesome.css" rel="stylesheet">
+    <link href="libs/css/leaflet-easy-button.css" rel="stylesheet">
+    <link href="libs/css/L.Control.Locate.min.css" rel="stylesheet">
+    
+    
+    <!-- bootstrap styles-->
+    <link href="libs/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- styles stylesheet -->
+    <link href="libs/css/styles.css" rel="stylesheet">
+    <link href="libs/font-awesome/css/fontawesome.css" rel="stylesheet">
+    <link href="libs/font-awesome/css/solid.css" rel="stylesheet">
+   
+
+</head>
+<body>
+
+    <!-- preloader -->
+  <div id="preloader"></div>   
+
+    <!-- map container -->
+    <div id="map">
+     
+
+        <!-- container for left sidebar -->
+        <div class="container leaflet-top" id="leftContainer">
+
+        <!-- card for intro and select input -->
+        <div class="card" style="width: 18rem;">
+            <img src="" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title">GAZETTEER</h5>
+              <p class="card-text">Welcome to Gazetteer. Here you can find information about any country.</p>
+              <p class="card-text">Use your current location, or select a country below to begin.</p>
+             
+              <!-- select bar -->
+              <select class="form-select" aria-label="Default select example" id="countryList">
+                <option selected>Select Country</option>
+              </select>
+            </div>
+          </div>
+          
+        </div>
+        
+    </div>
+
+    <!---------------------------------------- MODALS --------------------------------------->
+
+    <!-- ALERT MODAL SELECT A COUNTRY -->
+
+    <div class="modal fade" id="alert" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+          <div class="modal-header modalPurple text-white">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Please select a Country!</h5>
+          </div>
+          <div class="modal-body alert-modal-body">
+            <p>Please select a country from the dropdown list, or use your current location.</p>
+          </div>
+          <div class="modal-footer modalPurple">
+            <button
+              type="button"
+              class="btn btn-light close-alert-modal"
+              data-bs-dismiss="modal"
+            >
+              Okay!
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>   
+  
+
+    <!-- HELP POP UP MODAL -->
+    <div class="modal fade col-sm-6" id="helpInfo" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modalPurple ">
+          <div class="modal-header text-white ">
+
+            <h3 id="helpInfo">Welcome to Gazetteer</h3>
+          </div>
+          <div class="modal-body bg-light" id="helpInfoBody">
+          
+            <p>Select a country from the drop down list in the left pane, or use your current location.</p>
+            <br>
+            <p>View the map in different layers using the layer stack in the top right corner.</p>
+            <br>
+            <p>View Country Information, Weather Information and much more with the buttons in the bottom right corner.</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-light text-black closeInfo"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- IMAGES POP UP MODAL -->
+
+    <!-- CURRENCY POP UP MODAL -->
+
+    <!-- TIMEZONE POP UP MODAL-->
+
+    <!-- WEATHER POP UP MODAL-->
+
+    <!-- NATIONAL CALENDAR POP UP MODAL -->
+
+ 
+   
+    <!-- COUNTRY INFO POP UP MODAL W/ WIKI LINK -->
+    <div class="modal fade" id="countryInfo" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content modalPurple">
+          <div class="modal-header  text-white">
+
+            <h3 id="countryInfo">Country Information</h3>
+          </div>
+          <div class="modal-body bg-light">
+            <table class="table table-bordered table-sm table-striped">
+              <tr>
+                <th>Country Name</th>
+                <td id="countryName"></td>
+              </tr>
+              <tr>
+                <th>Capital City</th>
+                <td id="countryCapitalCity"></td>
+              </tr>
+              <tr>
+                <th>Continent</th>
+                <td id="countryContinent"></td>
+              </tr>
+              <tr>
+                <th>Population</th>
+                <td id="countryPopulation"></td>
+              </tr>
+              <tr>
+                <th>Currency</th>
+                <td id="countryCurrency"></td>
+              </tr>
+              <tr>
+                <img src="" id="countryFlag">
+              </tr>
+            </table>
+
+            <hr />
+
+            <div>
+              <a href="" <button type="button" class="btn btn-dark">Find out more!</button></a>
+            </div>  
+
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-light text-black closeInfo"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- IMAGES POP UP MODAL  -->
+<div class="modal fade" id="imagesInfo" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content modalPurple">
+      <div class="modal-header  text-white">
+
+        <h3 id="countryInfo">Country Images</h3>
+      </div>
+      <div class="modal-body bg-light">
+        
+<!-- IMAGE SECTION -->
+<ul class="pictures-section">
+  <li id=""></li>
+</ul>
+        
+
+
+          
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-light text-black closeInfo"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+   
+        
+    
+         
+    
+
+
+    <!-- scripts -->
+
+    <!-- jquery scripts -->
+    <script src="libs/js/jquery.min.js"></script>
+
+    <!-- bootstrap scripts -->
+    <script src="libs/js/bootstrap.min.js"></script>
+
+    <!-- leaflet scripts -->
+    <script src="libs/js/leaflet.js"></script>
+    <script src="libs/js/leaflet.ajax.min.js"></script>
+    <script src="libs/js/leaflet-easy-button.js"></script>
+    <script src="libs/js/L.Control.Locate.min.js"></script>
+    <script src="libs/js/numeral.min.js"></script>
+   
+
+    <!-- scripts script -->
+    <script src="libs/js/scripts.js"></script>
+
+</body>
+</html>
