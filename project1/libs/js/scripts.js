@@ -62,7 +62,7 @@ function getUserLocation() {
 (async function () {
   try {
     const location = await getUserLocation();
-    console.log("User location:", location.lat, location.lng);
+//     console.log("User location:", location.lat, location.lng);
 
     $.ajax({
       url: "libs/php/countryLatLng.php?",
@@ -709,7 +709,7 @@ function newsInfo(countryCode) {
 
       // let dataInfo = response.data.news;
       let dataInfo = response.data;
-      console.log(dataInfo)
+//       console.log(dataInfo)
       
       // let newsData = dataInfo.news;
      
@@ -779,7 +779,7 @@ function countryInfo(countryCode) {
     },
 
     success: function (response) {
-      console.log(response);
+//       console.log(response);
       let dataInfo = response.data;
 
      
@@ -919,9 +919,9 @@ $.ajax({
     let poundData = currencyData.GBP
     let euroData = currencyData.EUR
     let dollarData = currencyData.USD
-    console.log(poundData)
-    console.log(euroData)
-    console.log(dollarData)
+//     console.log(poundData)
+//     console.log(euroData)
+//     console.log(dollarData)
 
     $("#poundExchange").html(poundData);
     $("#euroExchange").html(euroData);
