@@ -25,7 +25,7 @@
     <link
       href="leaflet.markercluster/dist/MarkerCluster.Default.css"
       rel="stylesheet"
-    />
+  />
 
     <!-- bootstrap styles-->
     <link href="libs/css/bootstrap.min.css" rel="stylesheet" />
@@ -40,7 +40,7 @@
     <div id="preloader"></div>
 
     <!-- MAP CONTAINER -->
-    <div id="map">
+    <div id="map"></div>
 
       <!-- LEFT SIDEBAR CONTAINER -->
       <div class="container leaflet-top" id="leftContainer">
@@ -148,7 +148,7 @@
       </div>
     </div>
     
-<!-- COULDN'T LOAD COUNTRY INFO TOAST MODAL -->
+
 
 
 
@@ -186,10 +186,14 @@
                <th>Borders</th>
                <td id="countryBorders"></td>
              </tr>
-             <!-- <tr>
-               <th>Currency</th>
-               <td id="countryCurrency"></td>
-             </tr> -->
+             <tr>
+               <th>Population</th>
+               <td id="countryPopulation"></td>
+             </tr>
+             <tr>
+              <th>Area (km²)</th>
+              <td id="countryArea"></td>
+            </tr>
            </table>
 
            <div id="wikiButtonDiv">
@@ -210,6 +214,41 @@
        </div>
      </div>
    </div>
+
+    <!-- WIKI POP UP MODAL -->
+
+    <div
+      class="modal fade col-sm-6"
+      id="wikiInfo"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content modalPurple">
+          <div class="modal-header text-white">
+            <h3 id="wikiInfo">Country Wikipedia</h3>
+          </div>
+          <div class="modal-body bg-light" id="wikiDiv">
+            <div id="wikiData">
+
+              
+            </div>
+         
+            
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-light text-black closeInfo"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- NEWS POP UP MODAL -->
 
@@ -426,7 +465,7 @@
           </div>
         </div>
       </div>
-    </div>
+   
 
 
     <!-- scripts -->
@@ -448,7 +487,6 @@
     <script src="leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
     <!-- scripts script -->
-    <script src="libs/js/scripts.js"></script>
+    <script src="libs/js/script2.js"></script>
   </body>
 </html>
-
