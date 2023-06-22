@@ -9,7 +9,7 @@ $executionStartTime = microtime(true);
 
 
 
-$url ="https://api.worldnewsapi.com/search-news?source-countries=" . $_REQUEST['countryCode'] . "&api-key=086294303e094b7582dac6792ceed081";
+$url ="https://api.worldnewsapi.com/search-news?source-countries=" . $_REQUEST['countryCode'] . "&api-key=f0b4a575502c485e8c9805a7ac57525e";
 
 $ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
