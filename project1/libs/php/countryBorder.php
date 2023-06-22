@@ -1,11 +1,8 @@
 <?php 
 
-    ini_set('display_errors', 'On');
-    error_reporting(E_ALL);
-
     $executionStartTime = microtime(true);
 
-    $countryBorder = json_decode(file_get_contents("../json/getCountryBorders.json"));
+    $countryBorder = json_decode(file_get_contents("../json/getCountryBorders.geo.json"));
 
 
     $features = $countryBorder->features;
