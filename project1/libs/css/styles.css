@@ -99,6 +99,19 @@
   margin: 5px;
 }
 
+/********** WIKI MODAL STYLING **********/
+
+#wikiData {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+#wikiCards {
+  margin: 5px;
+}
+
 /********** ALL MODALS STYLING **********/
 .modalPurple {
   background-color: #820c82;
