@@ -14,14 +14,14 @@ $(window).on("load", function () {
 
 // ADDS OPENSTREETMAP LAYER
 
-var osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+var osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { // used to create tile layer
   maxZoom: 19,
   attribution: "",
 });
 
 // ADDS DARK LAYER
 
-var CartoDB_DarkMatter = L.tileLayer(
+var CartoDB_DarkMatter = L.tileLayer( // used to create tile layer
   "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
   {
     attribution:
@@ -33,7 +33,7 @@ var CartoDB_DarkMatter = L.tileLayer(
 
 // ADDS GOOGLE STREETS LAYER
 
-googleStreets = L.tileLayer(
+googleStreets = L.tileLayer( // used to create tile layer
   "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
   {
     maxZoom: 20,
@@ -43,14 +43,14 @@ googleStreets = L.tileLayer(
 
 // ADDS GOOGLE SATELITE LAYER
 
-googleSat = L.tileLayer("http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
+googleSat = L.tileLayer("http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", { // used to create tile layer
   maxZoom: 20,
   subdomains: ["mt0", "mt1", "mt2", "mt3"],
 });
 
 // ADDS WATERCOLOUR LAYER
 
-var Stamen_Watercolor = L.tileLayer(
+var Stamen_Watercolor = L.tileLayer( // used to create tile layer
   "https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}",
   {
     attribution:
@@ -64,7 +64,7 @@ var Stamen_Watercolor = L.tileLayer(
 
 // ADDS CYCLING LAYER
 
-let WaymarkedTrails_cycling = L.tileLayer(
+let WaymarkedTrails_cycling = L.tileLayer( // used to create tile layer
   "https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png",
   {
     maxZoom: 18,
@@ -75,16 +75,16 @@ let WaymarkedTrails_cycling = L.tileLayer(
 
 /////////////////// INITIALISING MAP ///////////////////
 
-let map = L.map("map", {
-  zoomControl: false,
-  layers: [
+let map = L.map("map", { // creates map
+  zoomControl: false, // zoom control false as moving
+  layers: [ // adds tile layers
     osm,
     CartoDB_DarkMatter,
     googleStreets,
     googleSat,
     Stamen_Watercolor,
   ],
-}).setView([54.505, -0.09], 6);
+}).setView([54.505, -0.09], 6); // sets initial view of map
 
 
 // ADDING ZOOM CONTROL 
@@ -98,14 +98,14 @@ L.control
 
 ////////////////// INITIALISINGLAYER CONTROL //////////////////
 
-var baseLayers = {
+var baseLayers = { // grouping base layers
   Satellite: googleSat,
   "Google Maps": googleStreets,
   "Water Color": Stamen_Watercolor,
   OpenStreetMap: osm,
 };
 
-let overlayLayers = {
+let overlayLayers = { // grouping overlay layers
   "Cycling Routes": WaymarkedTrails_cycling,
 };
 
@@ -123,12 +123,12 @@ layerControl.addTo(map);
 
 function locateUser() {
   map
-    .locate({ setView: true, maxZoom: 7 })
-    .on("locationfound", function (e) {
-      e.latitude;
-      e.longitude;
+    .locate({ setView: true, maxZoom: 7 }) // setting view to users location 
+    .on("locationfound", function (e) { // if able to get users location, locationfound is emited. 
+      e.latitude; // lat used to populate users location on map
+      e.longitude; // lng used to populate users location on map
     })
-    .on("locationerror", function (e) {
+    .on("locationerror", function (e) { // if unsuccessful, error will be thrown to select a country via the drop down
       // console.log(error);
       alert("Unable to get your location. Please select a Country via the drop down.");
     });
@@ -145,14 +145,14 @@ var capitalCity;
 
 $(document).ready(function () {
   function findUserLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (data) {
-        let { latitude } = data.coords;
-        let { longitude } = data.coords;
-        let coords = [latitude, longitude];
+    if (navigator.geolocation) { // checking to see if users browser supports geolocation
+      navigator.geolocation.getCurrentPosition(function (data) { // used to get the users lat lng
+        let { latitude } = data.coords; // stores user lat in variable
+        let { longitude } = data.coords; // stores user lng in variable
+        let coords = [latitude, longitude]; // stores both in coords variable
         //console.log(coords);
 
-        $.ajax({
+        $.ajax({ // gets country code from users location using lat and lng
           url: "libs/php/countryLatLng.php?",
           type: "GET",
           data: {
@@ -165,7 +165,7 @@ $(document).ready(function () {
             countryCode = json.countryCode;
             //console.log(countryCode);
             $("#countryList").val(countryCode).change();
-            onloadCountry(countryCode);
+            onloadCountry(countryCode); // populates drop down list with countries
           },
         });
       });
@@ -179,7 +179,7 @@ $(document).ready(function () {
 
 ////////////////// DROPDOWN MENU POPULATING //////////////////
 
-function userCountryCode() {
+function userCountryCode() { // gets list of countries and their country codes
   $.ajax({
     url: "libs/php/countryCode.php?",
     type: "GET",
@@ -187,16 +187,16 @@ function userCountryCode() {
     success: function (data) {
       let countries = JSON.parse(data);
       // console.log(data);
-      let option = "";
+      let option = ""; // where the countries will be appended to
      
       // LOOPING THROUGH COUNTRIES
 
-      for (let country of countries) {
+      for (let country of countries) { // iterating through countries
         option +=
           '<option value = "' + country[1] + '">' + country[0] + "</option>";
         countryCode = country[1];
       }
-      $("#countryList").append(option);
+      $("#countryList").append(option); // appending them to the drop down
     },
   });
 }
@@ -205,12 +205,12 @@ userCountryCode("map");
 
 ////////////////// INITIALISING MARKERS //////////////////
 
-let markers = L.markerClusterGroup();
-let marker = L.marker();
+let markers = L.markerClusterGroup(); // creates markers object for clustered markers
+let marker = L.marker(); // creates marker object for single marker
 
 // CITY MARKERS
 
-let cityIcon = L.ExtraMarkers.icon({
+let cityIcon = L.ExtraMarkers.icon({ // used to create icon
   icon: "fa-regular fa-city",
   markerColor: "violet",
   iconColor: "white",
@@ -220,7 +220,7 @@ let cityIcon = L.ExtraMarkers.icon({
 
 // EARTHQUAKE MARKERS
 
-let earthquakeIcon = L.ExtraMarkers.icon({
+let earthquakeIcon = L.ExtraMarkers.icon({ // used to create icon
   icon: "fa-regular fa-house-crack",
   markerColor: "violet",
   iconColor: "green",
@@ -230,9 +230,9 @@ let earthquakeIcon = L.ExtraMarkers.icon({
 
 ////////////////// ADDING MAP BORDERS LAYER //////////////////
 
-let countryBoundary = new L.geoJson();
+let countryBoundary = new L.geoJson(); // creates new object to add to the map
 
-countryBoundary.addTo(map);
+countryBoundary.addTo(map); // adds to map
 
 // BORDER STYLING
 
@@ -248,7 +248,8 @@ function borderStyle() {
 
 /////////////////// GETTING BORDER INFO FROM PHP FILE ///////////////////
 
-function countryBorder(countryCode) {
+
+function countryBorder(countryCode) { // gets country border info using countryCode as parameter
 
   $.ajax({
     url: "libs/php/countryBorder.php?",
@@ -259,12 +260,13 @@ function countryBorder(countryCode) {
     success: function (json) {
       jsonInfo = JSON.parse(json);
 
-      countryBoundary.clearLayers();
-      countryBoundary.addData(jsonInfo).setStyle(borderStyle());
+      countryBoundary.clearLayers(); // clears other layers
+      countryBoundary.addData(jsonInfo).setStyle(borderStyle()); // setting style and adding boundary
 
-      const bounds = countryBoundary.getBounds();
-      map.fitBounds(bounds);
+      const bounds = countryBoundary.getBounds(); // fitting to the bounds of the border
+      map.fitBounds(bounds); // fits the map object to the bounds of the country border
 
+      // variables used to store e w n s for border
       let eastBounds = bounds.getEast();
       let westBounds = bounds.getWest();
       let northBounds = bounds.getNorth();
@@ -291,18 +293,18 @@ function countryBorder(countryCode) {
           let markers = L.markerClusterGroup();
 
           if (markers) {
-            $("#countryList").change(function () {
+            $("#countryList").change(function () { // changes the markers per country
               markers.eachLayer(function (layer) {
                 markers.removeLayer(layer);
               });
             });
           }
 
-          for (let i = 0; i < cityData.length; i++) {
+          for (let i = 0; i < cityData.length; i++) { // iterates through city markers
             let cityMarkerLat = cityData[i].lat;
             let cityMarkerLng = cityData[i].lng;
             
-            let cityMarkerName = cityData[i].name;
+            let cityMarkerName = cityData[i].name; // populating markers with info
             let cityMarkerPop = numeral(cityData[i].population).format(
               "0a",
               "0.0a"
@@ -320,8 +322,8 @@ function countryBorder(countryCode) {
               </table>
             `);
 
-            markers.addLayer(cityMarker);
-            markers.addTo(map);
+            markers.addLayer(cityMarker); // adding layers
+            markers.addTo(map); // adding to map
           }
         },
 
@@ -352,15 +354,15 @@ function countryBorder(countryCode) {
           let markers = L.markerClusterGroup();
 
           if (markers) {
-            $("#countryList").change(function () {
+            $("#countryList").change(function () { // changes the markers per country
               markers.eachLayer(function (layer) {
                 markers.removeLayer(layer);
               });
             });
           }
 
-          for (let i = 0; i < earthquakeData.length; i++) {
-            let earthquakeMarkerLat = earthquakeData[i].lat;
+          for (let i = 0; i < earthquakeData.length; i++) { // iterates through earthquake markers
+            let earthquakeMarkerLat = earthquakeData[i].lat; // populating markers with info
             // console.log(earthquakeMarkerLat)
             let earthquakeMarkerLng = earthquakeData[i].lng;
             // console.log(earthquakeMarkerLng)
@@ -382,8 +384,8 @@ function countryBorder(countryCode) {
           </table>
           `);
 
-            markers.addLayer(earthquakeMarker);
-            markers.addTo(map);
+            markers.addLayer(earthquakeMarker);  // adding layers
+            markers.addTo(map); // adding to map
           }
         },
         error: function (error) {
@@ -516,7 +518,7 @@ function onloadCountry(countryCode) {
   newsInfo(countryCode);
   countryWiki(countryName);
 }
-onloadCountry("map");
+onloadCountry("gb"); // setting GB as initial loading country
 
 // DECLARING VARIABLES
 
