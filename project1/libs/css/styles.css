@@ -1,34 +1,55 @@
 /********** MAP STYLING **********/
 
-#map {
+/* #map {
   height: 100vh;
   width: 100%;
-  position: relative;
+  position: relative; */
   /* z-index: ; */
+/* } */
+
+#map {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#selectContainer {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  padding: 11px 0;
+}
+
+#countryList {
+  width: 200px;
+  margin: 0 auto;
 }
 
 /********** LEFT CONTAINER STYLING **********/
 
-#leftContainer {
+/* #leftContainer {
   padding-bottom: 12px;
   padding-top: 12px;
-}
+} */
 
 .card-title {
-  font-family: "Tsukimi Rounded", sans-serif;
-  color: #820c82;
+  color: #208c07;
   text-align: center;
 }
 
 .card-text {
   font-family: "Roboto", sans-serif;
-  text-align: center;
+  text-align: left;
   font-size: 14px;
 }
 
-.form-select {
+
+
+/* .form-select {
   pointer-events: auto;
-}
+} */
 
 /********** HELP MODAL STYLING **********/
 
@@ -38,7 +59,7 @@
 }
 /* BODY */
 #helpInfoBody {
-  text-align: center;
+  text-align: left;
   font-family: "Roboto", sans-serif;
 }
 
@@ -65,6 +86,7 @@
   width: 350px;
   height: auto;
   margin-bottom: 15px;
+  border-radius: 10px;
 }
 
 #wikiButtonDiv {
@@ -75,16 +97,30 @@
 /********** IMAGES MODAL STYLING **********/
 
 #countryImage {
-  width: 221px;
-  height: 221px;
+  width: 455px;
+  height: 455px;
+  margin: 5px;
+  border-radius: 10px;
+  
 }
 
 @media only screen and (max-width: 400px) {
   #countryImage {
-    width: 170px;
-    height: 170px;
+    width: 330px;
+    height: 330px;
+    margin: 5px;
+    border-radius: 10px;
   }
 }
+
+
+
+
+
+
+
+
+
 
 /********** NEWS MODAL STYLING **********/
 
@@ -110,12 +146,9 @@
 
 #wikiCards {
   margin: 5px;
+  
 }
 
-/********** ALL MODALS STYLING **********/
-.modalPurple {
-  background-color: #820c82;
-}
 
 /********** WEATHER MODAL STYLING **********/
 
@@ -128,7 +161,19 @@
   width: 400px;
   height: auto;
   margin-bottom: 15px;
+  border-radius: 10px;
 }
+
+/********** ALL MODALS STYLING **********/
+.tableRight {
+  text-align: right;
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+
 
 /********** PRELOADER STYLING **********/
 
@@ -149,7 +194,7 @@
   top: calc(50% - 30px);
   left: calc(50% - 30px);
   border: 6px solid #f2f2f2;
-  border-top: 6px solid #820c82;
+  border-top: 6px solid #208c07;
   border-radius: 50%;
   width: 60px;
   height: 60px;
