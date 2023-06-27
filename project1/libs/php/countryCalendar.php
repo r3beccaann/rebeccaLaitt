@@ -17,6 +17,8 @@ $executionStartTime = microtime(true);
 // getting country code from request variable
 $url = "https://holidayapi.com/v1/holidays?pretty&country=" . $_REQUEST['countryCode'] . "&year=2022&key=89d2ad5e-0a46-4e57-87a5-d686b8251912";
 
+
+
 $ch = curl_init(); // creating curl handle
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);  // disables SSL certificate verification
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // ensures the response from the API is a string
