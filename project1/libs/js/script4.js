@@ -411,6 +411,7 @@ $(window).on("load", function () {
   function onloadCountry(countryCode) {
     if (countryCode == "") return;
     countryName = $("#countryList option:selected").text();
+    console.log(countryName)
     countries = countryCode;
   
     earthquakes.clearLayers(); // stops the markers from adding to eachother with each country selected
@@ -467,16 +468,21 @@ $(window).on("load", function () {
         $("#countryFlag").attr("src", dataInfo.flag);
         $("#countryWiki").attr("href", wikiLink);
   
-        currencyCode = dataInfo.currencies[0]["code"];
+        if (dataInfo.currencies =! 'undefined') {
+        currencyCode = dataInfo.currencies[0].code;
+        }
+        // console.log(dataInfo)
         capitalCity = dataInfo.capital;
         // console.log(capitalCity)
   
         //console.log(currencyCode); 
   
+        if (dataInfo.latlng =! 'undefined') {
+
         lat = dataInfo.latlng[0];
         lng = dataInfo.latlng[1];
   
-    
+        }
   
         $.ajax({
           // url: "libs/php/currencyExchange.php?",
@@ -489,6 +495,7 @@ $(window).on("load", function () {
   
           success: function (response) {
             let currencyData = response.data
+            if (currencyData =! 'undefined'){
             //console.log(currencyData)
           // let currencyData = JSON.parse(response);
          
@@ -566,7 +573,7 @@ $(window).on("load", function () {
  
      
     
-          }})
+          }}})
 
         //// NEW WEATHER MODAL HERE
 
@@ -718,7 +725,7 @@ $(window).on("load", function () {
   
         $("#newsData").empty();
   
-        // if (dataInfo =! 'null') {
+        
         for (let i = 0; i < 6; i++) {
           let newsData = dataInfo.news;
           let name = newsData[i].title;
@@ -808,6 +815,7 @@ $(window).on("load", function () {
   
         $("#calendarData").empty();
   
+      
         for (let i = 0; i < holidayInfo.length; i++) {
           let name = holidayInfo[i].name;
           let date = holidayInfo[i].date;
@@ -913,7 +921,7 @@ $(window).on("load", function () {
   
         $("#wikiData").empty();
   
-        // if (dataInfo =! 'null') {
+        // if (dataInfo =! 'undefined') {
         for (let i = 0; i < 6; i++) {
           let wikiData = dataInfo;
           let title = wikiData[i].title;
@@ -939,10 +947,12 @@ $(window).on("load", function () {
         }
         // WIKI MARKERS
   
+        
+
         let wikiDataInfo = response.data;
         let wikiDataMarkers = wikiDataInfo;
         // console.log(wikiDataMarkers);
-  
+        
         for (let i = 0; i < 6; i++) {
           // iterates through wiki markers
           let wikiMarkerLat = wikiDataMarkers[i].lat;
@@ -965,9 +975,9 @@ $(window).on("load", function () {
               { direction: "top", sticky: true }
             )
             .addTo(wiki);
-        }
+        }}
       },
-    });
+    );
   }
   
   /////////////////// MODAL BUTTONS VIA EASY BUTTON ///////////////////
