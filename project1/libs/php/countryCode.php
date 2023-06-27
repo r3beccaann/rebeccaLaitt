@@ -21,6 +21,8 @@ for ($i = 0; $i < sizeof($features); $i++) {
 usort($countries, function ($a, $b) { // sorts the countries by country name
     return strcasecmp($a[0], $b[0]); // compares the country names in a case insensitive way
 });
+
+
 echo(json_encode($countries));
 
 
