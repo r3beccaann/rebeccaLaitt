@@ -1,30 +1,36 @@
 <?php
 
+// gets current time
 $executionStartTime = microtime(true) / 1000;
 
+// creating curl handle
 $ch = curl_init();
 
+// getting country code
 $countryCode = $_GET['countryCode'];
-// $countryCode = 'GB'; 
-// ^^ USED TO TEST JSON PATH ETC.
 
+// below used to test path
+// $countryCode = 'GB'; 
+
+// getting country code from request variable
 $url = "https://restcountries.com/v2/alpha/" . $countryCode;
 
 
-
 curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // ensures the response from the API is a string
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // disables SSL certificate verification
 
-$resp = curl_exec($ch);
+// makes the request to the API
+$resp = curl_exec($ch); // response is stored in this variable
 
+// error message if error
 if ($e = curl_error($ch)) {
     echo $e;
 } else {
-    $decoded = json_decode($resp, true);
+    $decoded = json_decode($resp, true); // decodes the response from the API as a a JSON object
 }
 
-curl_close($ch);
+curl_close($ch); // closes the curl handle
 
 
 $output['status']['code'] = "200";
