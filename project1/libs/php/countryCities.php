@@ -6,11 +6,11 @@ $executionStartTime = microtime(true) / 1000;
 // creating curl handle
 $ch = curl_init();
 
-//$url='http://api.geonames.org/citiesJSON?north=58.63500010846633&south=49.95999990498108&east=1.681530795914739&west=-7.572167934591079&lang=en&username=loud_task';
-
 // getting bounds from request variable
-$url = 'http://api.geonames.org/citiesJSON?north=' . $_REQUEST['northBounds'] . '&south=' . $_REQUEST['southBounds'] . '&east=' . $_REQUEST['eastBounds'] . '&west=' . $_REQUEST['westBounds'] . '&lang=en&username=rebeccalaitt';
+// $url = 'http://api.geonames.org/citiesJSON?north=' . $_REQUEST['northBounds'] . '&south=' . $_REQUEST['southBounds'] . '&east=' . $_REQUEST['eastBounds'] . '&west=' . $_REQUEST['westBounds'] . '&lang=en&username=rebeccalaitt';
+$url = 'http://api.geonames.org/searchJSON?country=' . $_REQUEST['countryCode'] . '&cities=cities15000&username=rebeccalaitt&maxRows=50';
 
+// $url = 'http://api.geonames.org/searchJSON?country= ' . $_REQUEST['countryCode'] . '&cities=cities15000&username=rebeccalaitt&maxRows=50';
 
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // ensures the response from the API is a string
