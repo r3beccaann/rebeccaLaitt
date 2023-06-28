@@ -164,7 +164,7 @@ $(window).on("load", function () {
       })
       .on("locationerror", function (e) {
         // if unsuccessful, error will be thrown to select a country via the drop down
-        console.log(e)
+        // console.log(e)
         $("#countryList").val('GB').change();
 
         alert(
@@ -279,7 +279,10 @@ $(window).on("load", function () {
   
   function countryBorder(countryCode) {
     // gets country border info using countryCode as parameter
-  
+    if (countryCode.includes('map')) { // gets rid of the bounds error as tries to read map as country code
+      return;
+      }
+
     $.ajax({
       url: "libs/php/countryBorder.php?",
       type: "GET",
@@ -297,11 +300,14 @@ $(window).on("load", function () {
         const bounds = countryBoundary.getBounds(); // fitting to the bounds of the border
         map.fitBounds(bounds); // fits the map object to the bounds of the country border
   
+        
         // variables used to store e w n s for border
         let eastBounds = bounds.getEast();
         let westBounds = bounds.getWest();
         let northBounds = bounds.getNorth();
         let southBounds = bounds.getSouth();
+
+        
   
         // CITY MARKERS
   
@@ -394,11 +400,16 @@ $(window).on("load", function () {
             }
           },
         });
+      
+      
       },
     });
   }
+
+  
   
   countryBorder("map");
+  
   
   /////////////////// JOINING THE SELECT MENU AND COUNTRY CODES / BORDERS ///////////////////
   
@@ -427,9 +438,16 @@ $(window).on("load", function () {
  
   
   function onloadCountry(countryCode) {
+    if (countryCode.includes('map')) { // gets rid of the bounds error as tries to read map as country code
+      return;
+      }
+    if (countryName = 'undefined') { // gets rid of undefined error when trying to read map as country name for wiki
+      countryName = 'GB'
+    }
+    
     if (countryCode == "") return;
     countryName = $("#countryList option:selected").text();
-    console.log(countryName)
+    // console.log(countryName)
     countries = countryCode;
 
     
@@ -563,6 +581,10 @@ $(window).on("load", function () {
 
             $(document).ready(function() {
 
+              if (currencyData = '') {
+                // console.log('currency info not available')
+              } else {
+
                 let fromAmount = document.getElementById("fromAmount").value;
                 // console.log(fromAmount)
                 let selectedCode = $(this).val(); // currency code of the drop down
@@ -598,7 +620,7 @@ $(window).on("load", function () {
 
             });
             
-            });
+            }});
             let currencyFrom = currencyCode; // base rate to access
             $("#fromAmountLabel").html("From " + currencyCode); // changes the base 'from' label
  
@@ -744,11 +766,10 @@ $(window).on("load", function () {
   
       success: function (response) {
         // console.log(response)
-  
-        // let dataInfo = response.data.news;
+  // console.log(response.data.news = [])
         let dataInfo = response.data;
-        
-        
+        // if (dataInfo.news.title != 'undefined') {
+        //   console.log('not undefined news')
   
         // let newsData = dataInfo.news;
   
@@ -756,57 +777,72 @@ $(window).on("load", function () {
   
         $("#newsData").empty();
   
+        if (dataInfo.news != '') {
+          for (let i = 0; i < 6; i++) {
+            let newsData = dataInfo.news[i];
+            let name = newsData.title;
+            let date = newsData.publish_date;
+            let author = newsData.author;
+            let image = newsData.image;
+            let link = newsData.url;
+  
+            // let card = `
+            //         <div class="card" style="width: 18rem;" id="newsCards">
+            //           <img src="${image}" class="card-img-top" alt="...">
+            //           <div class="card-body">
+            //             <h5 class="card-title">${name}</h5>
+            //             <p class="card-text">${date}</p>
+            //             <a href="${link}" class="btn btn-primary">Read More</a>
+            //           </div>
+            //         </div>
+            //       `;
+  
+            // $("#newsData").append(card);
+  
+            let newsTable = `
+              <table class="table table-borderless">
+          <tr>
+            <td rowspan="2" width="50%">
+              <img class="img-fluid rounded" src="${image}" />
+            </td>
+            <td>
+            <a href="${link}" target="_blank" style="font-weight: bold; color: black;">${name}</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="align-bottom pb-0">
+              <p class="fw-light fs-6 mb-1">Author: ${author}</p>
+            </td>
+          </tr>
+        </table>
+        <hr>
+      `;
+            $("#newsData").append(newsTable);
+            // console.log('news ok!')
+          }
+        } else if (response.data.news = [])  {
+          let newErrorDiv = $("<div>");
+          let newsErrorHeading = 'Something went wrong..'
+          let newsError = 'Sorry, we could not load country News Information. Please try another option.'
+          newErrorDiv.append($("<h5>").text(newsErrorHeading));
+          newErrorDiv.append($("<p>").text(newsError));
+          $("#newsData").append(newErrorDiv);
+// console.log('undefined error')
         
-        for (let i = 0; i < 6; i++) {
-          let newsData = dataInfo.news;
-          let name = newsData[i].title;
-          let date = newsData[i].publish_date;
-          let author = newsData[i].author;
-          let image = newsData[i].image;
-          let link = newsData[i].url;
-  
-          //   let card = `
-          //         <div class="card" style="width: 18rem;" id="newsCards">
-          //           <img src="${image}" class="card-img-top" alt="...">
-          //           <div class="card-body">
-          //             <h5 class="card-title">${name}</h5>
-          //             <p class="card-text">${date}</p>
-          //             <a href="${link}" class="btn btn-primary">Read More</a>
-          //           </div>
-          //         </div>
-          //       `;
-  
-          //   $("#newsData").append(card);
-  
-          let newsTable = `
-            <table class="table table-borderless">
-        <tr>
-          <td rowspan="2" width="50%">
-            <img class="img-fluid rounded" src="${image}" />
-          </td>
-          <td>
-          <a href="${link}" target="_blank" style="font-weight: bold; color: black;">${name}</a>
-          </td>
-        </tr>
-        <tr>
-          <td class="align-bottom pb-0">
-            <p class="fw-light fs-6 mb-1">Author: ${author}</p>
-          </td>
-        </tr>
-      </table>
-      <hr>
-    `;
-          $("#newsData").append(newsTable);
+
+
+        } else {
+          /////////////// HANDING NULL NEWS ERROR WHICH HAS HAPPENED TWICE BEFORE DUE TO THEIR SERVER ERROR ///////////////
+          let newErrorDiv = $("<div>");
+          let newsErrorHeading = 'Something went wrong..'
+          let newsError = 'Sorry, we could not load country News Information. Please try another option.'
+          newErrorDiv.append($("<h5>").text(newsErrorHeading));
+          newErrorDiv.append($("<p>").text(newsError));
+          $("#newsData").append(newErrorDiv);
+          // console.log(" credit error");
         }
-        // } else {
-        /////////////// HANDING NULL NEWS ERROR WHICH HAS HAPPENED TWICE BEFORE DUE TO THEIR SERVER ERROR ///////////////
-        //   let newErrorDiv = $("<div>");
-        //   let newsErrorHeading = 'Something went wrong..'
-        //   let newsError = 'Sorry, we could not load country News Information. Please try another option.'
-        //   newErrorDiv.append($("<h5>").text(newsErrorHeading));
-        //   newErrorDiv.append($("<p>").text(newsError));
-        //   $("#newsData").append(newErrorDiv);
-        // }
+
+
       },
       error: function (error) {
         if (error.status !== 200) {
@@ -948,14 +984,20 @@ $(window).on("load", function () {
   
       success: function (response) {
         let dataInfo = response.data;
-        // console.log(dataInfo);
+        // console.log(dataInfo.title);
   
         $("#wikiData").empty();
+        
   
         // if (dataInfo =! 'undefined') {
-        for (let i = 0; i < 6; i++) {
+          if (dataInfo != '') {
+        for (let i = 0; i < dataInfo.length; i++) {
           let wikiData = dataInfo;
+
+
+          
           let title = wikiData[i].title;
+       
   
           let summary = wikiData[i].summary;
   
@@ -975,16 +1017,33 @@ $(window).on("load", function () {
                     `;
   
           $("#wikiData").append(card);
+        }} else {
+          // console.log('oops wiki error!!')
+          let errorCard = `
+                      <div class="card" style="width: 18rem;" id="wikiCards">
+                       
+                        <div class="card-body text-center">
+                          <h5 class="card-title">Something went wrong..</h5>
+                          <p class="card-text ">Sorry, we could not load country Wiki Information. Please try another option.</p>
+                          
+                        </div>
+                      </div>
+                    `;
+  
+          $("#wikiData").append(errorCard);
         }
         // WIKI MARKERS
   
         
-
+        
         let wikiDataInfo = response.data;
+        
+        if (wikiDataInfo != '') {
+
         let wikiDataMarkers = wikiDataInfo;
         // console.log(wikiDataMarkers);
         
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < wikiDataMarkers.length; i++) {
           // iterates through wiki markers
           let wikiMarkerLat = wikiDataMarkers[i].lat;
   
@@ -1006,8 +1065,13 @@ $(window).on("load", function () {
               { direction: "top", sticky: true }
             )
             .addTo(wiki);
-        }}
-      },
+        } } else {
+          
+            // console.log('wiki marker error')
+          
+        }
+      }
+      }
     );
   }
   
