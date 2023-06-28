@@ -164,12 +164,16 @@ $(window).on("load", function () {
       })
       .on("locationerror", function (e) {
         // if unsuccessful, error will be thrown to select a country via the drop down
-        // console.log(error);
+        console.log(e)
+        $("#countryList").val('GB').change();
+
         alert(
           "Unable to get your location. Please select a Country via the drop down."
         );
       });
   }
+
+  locateUser('map')
   
   ////////////////// DECLARING VARIBALES //////////////////
   
@@ -182,6 +186,7 @@ $(window).on("load", function () {
   
   $(document).ready(function () {
     function findUserLocation() {
+      
       if (navigator.geolocation) {
         // checking to see if users browser supports geolocation
         navigator.geolocation.getCurrentPosition(function (data) {
@@ -189,7 +194,7 @@ $(window).on("load", function () {
           let { latitude } = data.coords; // stores user lat in variable
           let { longitude } = data.coords; // stores user lng in variable
           let coords = [latitude, longitude]; // stores both in coords variable
-          //console.log(coords);
+          // console.log(coords);
   
           $.ajax({
             // gets country code from users location using lat and lng
@@ -210,7 +215,9 @@ $(window).on("load", function () {
             },
           });
         });
-      } else {
+      } else { 
+        $("#countryList").val('GB').change();
+        
         alert(
           "Unable to get your location. Please select a Country via the drop down."
         );
@@ -397,7 +404,9 @@ $(window).on("load", function () {
   
   window.onload = function () {
     document.getElementById("countryList").onchange = function () {
+      // onloadCountry(this.value);
       onloadCountry(this.value);
+     
     };
   };
   
@@ -407,13 +416,24 @@ $(window).on("load", function () {
   let countryName;
   
   // INITIATING FUNCTIONS FOR REQUIRED MENUS
+
+  function checkLocation() {
+    if (navigator.geolocation === null) {
+      // Check if the user's browser supports geolocation
+      // If it doesn't, set the value of the #countryList element to 'gb'
+      $("#countryList").val("gb").change();
+    }
+  }
+ 
   
   function onloadCountry(countryCode) {
     if (countryCode == "") return;
     countryName = $("#countryList option:selected").text();
     console.log(countryName)
     countries = countryCode;
-  
+
+    
+
     earthquakes.clearLayers(); // stops the markers from adding to eachother with each country selected
     cities.clearLayers(); // stops the markers from adding to eachother with each country selected
     wiki.clearLayers(); // stops the markers from adding to eachother with each country selected
@@ -424,6 +444,8 @@ $(window).on("load", function () {
     calendarInfo(countryCode);
     newsInfo(countryCode);
     countryWiki(countryName);
+
+    
   }
   onloadCountry("map"); // setting GB as initial loading country
   
@@ -468,21 +490,21 @@ $(window).on("load", function () {
         $("#countryFlag").attr("src", dataInfo.flag);
         $("#countryWiki").attr("href", wikiLink);
   
-        if (dataInfo.currencies =! 'undefined') {
+        
         currencyCode = dataInfo.currencies[0].code;
-        }
+        
         // console.log(dataInfo)
         capitalCity = dataInfo.capital;
         // console.log(capitalCity)
   
         //console.log(currencyCode); 
   
-        if (dataInfo.latlng =! 'undefined') {
+        
 
         lat = dataInfo.latlng[0];
         lng = dataInfo.latlng[1];
   
-        }
+        
   
         $.ajax({
           // url: "libs/php/currencyExchange.php?",
@@ -495,12 +517,18 @@ $(window).on("load", function () {
   
           success: function (response) {
             let currencyData = response.data
-            if (currencyData =! 'undefined'){
-            //console.log(currencyData)
+           
+            // console.log(currencyData)
           // let currencyData = JSON.parse(response);
          
             $.each(currencyData, function(code, value) {
-              $("#currencyList").append($('<option></option>').val(code).text(code));
+              $("#currencyList").append($('<option></option>').val(value).text(code));
+              
+
+
+
+
+              
             })
 
             // $('#currencyList').on('change', function() {
@@ -536,10 +564,13 @@ $(window).on("load", function () {
             $(document).ready(function() {
 
                 let fromAmount = document.getElementById("fromAmount").value;
+                // console.log(fromAmount)
                 let selectedCode = $(this).val(); // currency code of the drop down
                 let selectedValue = currencyData[selectedCode]; // value of the drop down
+                // console.log(selectedValue)
 
                 fromAmountNumber = parseFloat(fromAmount);
+                // console.log(fromAmountNumber)
 
                 $("#fromAmount").on("input", function() {
                   
@@ -573,7 +604,7 @@ $(window).on("load", function () {
  
      
     
-          }}})
+          }})
 
         //// NEW WEATHER MODAL HERE
 
