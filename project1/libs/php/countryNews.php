@@ -12,7 +12,7 @@ $executionStartTime = microtime(true);
 // $countryCode = $_GET['countryCode'];
 
 // getting country code from request variable
-$url = "https://api.worldnewsapi.com/search-news?source-countries=" . $_REQUEST['countryCode'] . "&api-key=fc964def456146438fd37707a9dfdf65";
+$url = "https://api.worldnewsapi.com/search-news?source-countries=" . $_REQUEST['countryCode'] . "&api-key=7a3ea51338164749b72542b972b14ec2";
 
 $ch = curl_init(); // creating curl handle
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);  // disables SSL certificate verification
