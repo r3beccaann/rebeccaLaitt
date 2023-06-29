@@ -541,87 +541,68 @@ $(window).on("load", function () {
          
             $.each(currencyData, function(code, value) {
               $("#currencyList").append($('<option></option>').val(value).text(code));
+            // let value = ($('#currencyList').val())
+
+            let fromAmount = document.getElementById("fromAmount").value; // input number 
+            // console.log(fromAmount) 
+
+            let selectedCode = ($("#currencyList option:selected").val()); // drop down number
+            // console.log(selectedCode)
+
+           
+            $('#fromAmount').on('keyup', function () {
+
+              calcResult();
+            
+            })
+            
+            $('#fromAmount').on('change', function () {
+            
+              calcResult();
+            
+            })
+            
+            $('#currencyList').on('change', function () {
+            
+              calcResult();
+            
+            })
+            
+            $(document).ready(function() {
               
-
-
-
-
+              calcResult();
+              
+            })
+            
+            function calcResult() {
+               
+              $('#toAmount').val(numeral($('#fromAmount').val() * $('#currencyList').val()).format("0,0.00"));
+              
+            }
+            
               
             })
 
-            // $('#currencyList').on('change', function() {
-            //     var selectedCode = $(this).val();
-            //     var selectedValue = currencyData[selectedCode];
-            //     $('toAmount').text(selectedValue);
-            // });
+          
 
-            // $('#fromAmount').on('keyup', function () {
-            //     calcResult();
-            // })
-
-            // $('#fromAmount').on('change', function() {
-            //     calcResult();
-            // })
-
-            // $('#currenctList').on('change', function() {
-            //     calcResult();
-            // })
-
-            // $(document).ready(function() {
-            //     calcResult();
-            // })
-
-            // function calcResult() {
-            //     $('#toAmount').val(numeral($('#fromAmount').val() * $('#currencyList').val()).format("0,0.00"));
-  
-            // }
-            // }})
-
-            // let fromAmountNumber = 1;
-
-            $(document).ready(function() {
-
-              if (currencyData = '') {
-                // console.log('currency info not available')
-              } else {
-
-                let fromAmount = document.getElementById("fromAmount").value;
+                // let fromAmount = document.getElementById("fromAmount").value;
                 // console.log(fromAmount)
-                let selectedCode = $(this).val(); // currency code of the drop down
-                let selectedValue = currencyData[selectedCode]; // value of the drop down
+
+                // let selectedCode = $("#currencyList option:selected").val();
+                // console.log(selectedCode)
+
+                // let selectedCode = $(this).val(); // currency code of the drop down
+                // console.log(selectedCode)
+                // let selectedValue = currencyData[selectedCode]; // value of the drop down
                 // console.log(selectedValue)
 
-                fromAmountNumber = parseFloat(fromAmount);
-                // console.log(fromAmountNumber)
-
-                $("#fromAmount").on("input", function() {
-                  
-
-                  
-                    let newFromAmount = $(this).val();
-                    // console.log(newFromAmount)
-                    fromAmountNumber = parseFloat(newFromAmount)
-                   
-                    let convertedAmount = parseFloat(fromAmountNumber) * parseFloat(selectedValue);
-                    // console.log(convertedAmount)
-                    document.getElementById("toAmount").value = convertedAmount;
+               
     
-                });
+               
             
-            $("#currencyList").on("change", function() {
-            // let fromAmount = document.getElementById("fromAmount").value;
-            let selectedCode = $(this).val(); // currency code of the drop down
-            let selectedValue = currencyData[selectedCode]; // value of the drop down
+        
+            // let currencyFrom = currencyCode; // base rate to access
            
-            let convertedAmount = parseFloat(fromAmountNumber) * parseFloat(selectedValue);
-            // console.log(convertedAmount)
-            document.getElementById("toAmount").value = convertedAmount;
-
-
-            });
-            
-            }});
-            let currencyFrom = currencyCode; // base rate to access
             $("#fromAmountLabel").html("From " + currencyCode); // changes the base 'from' label
  
      
@@ -750,7 +731,7 @@ $(window).on("load", function () {
       
       })}
          
-    
+   
   
   /////////////////// COUNTRY NEWS MODAL POPULATING ///////////////////
   
@@ -775,7 +756,18 @@ $(window).on("load", function () {
   
         // let newsCardData = dataInfo.news
   
+        
         $("#newsData").empty();
+
+        if (response.data = 'null'){
+          let newErrorDiv = $("<div>");
+          let newsErrorHeading = 'Something went wrong..'
+          let newsError = 'Sorry, we could not load country News Information. Please try another option.'
+          newErrorDiv.append($("<h5>").text(newsErrorHeading));
+          newErrorDiv.append($("<p>").text(newsError));
+          $("#newsData").append(newErrorDiv);
+          // console.log ('null issue')
+        } else
   
         if (dataInfo.news != '') {
           for (let i = 0; i < 6; i++) {
