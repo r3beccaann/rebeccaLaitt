@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Company Directory</title>
+
+  <!-- STYLESHEETS -->
+  <!-- bootstrap -->
+  <link href="libs/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- alertify -->
+  <link href="libs/alertify/alertify.min.css" rel="stylesheet"/>
+  <link href="libs/alertify/default.min.css" rel="stylesheet"/>
+  
+  <!-- my styles -->
+  <link href="libs/css/styles.css" rel="stylesheet" />
+
+  <!-- font awesome -->
+  <link href="libs/font-awesome/css/solid.css" rel="stylesheet" />
+  <link href="libs/font-awesome/css/fontawesome.css" rel="stylesheet" />
+
+  <!-- favicon -->
+  <link href="cd.png" rel="icon">
+</head>
+
+<body>
+
+  <!-- PRE LOADER -->
+  <div id="preloader"></div>
+
+  <!-- HEADER -->
+  <nav class="navbar bg-light">
+    <div class="container justify-content-center">
+      <a class="navbar-brand text-center" href="#">
+        <h1 id="header">COMPANY DIRECTORY</h1>
+        <hr>
+        <h4 id="tagline">Manage your company direct.</h4>
+      </a>
+    </div>
+  </nav>
+
+  <!-------------------------------------- MAIN CONTAINER -------------------------------------->
+  <div class="container" id="main">
+
+    <!-------------------------------------- NAV LIST PILLS -------------------------------------->
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+          type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+          STAFF
+        </button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+          type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
+          DEPARTMENTS
+        </button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
+          type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+          LOCATIONS
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+
+      <!-------------------------------------- STAFF TAB CONTENT ------------------------------------->
+      <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+        tabindex="0">
+        <div class="fixed-bottom" id="addButtonDiv">
+          <button id="addPersonnel" type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#insertNewPerson">
+            <i class="fa-solid fa-user-plus fa-xl"></i>
+          </button>
+        </div>
+
+        <!-- SEARCH AND FILTER STAFF -->
+
+        <div class="input-group mb-3" id="searchFilterDiv">
+
+          <select class="form-select deptDropdown searchFilter departments" aria-label="Default select example"
+            id="staffDeptFilter">
+
+          </select>
+
+
+
+          <input type="text" class="form-control searchFilter" id="staffSearch"
+            aria-label="Text input with dropdown button" placeholder="Search Staff..">
+
+        </div>
+
+
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <table class="table table-bordered">
+            <thead class="text-center">
+              <tr>
+                <!-- table headings -->
+                <th id="tableHead" scope="col">Name</th>
+                <th id="tableHead" scope="col">Department</th>
+                <th id="tableHead" class="tableHide" scope="col">Location</th>
+                <th id="tableHead" class="tableHide" scope="col">Email</th>
+                <th id="tableHead" scope="col">Actions</th>
+
+              </tr>
+            </thead>
+            <tbody id="staffTable">
+
+
+
+
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-------------------------------------- DEPARTMENT TAB CONTENT -------------------------------------->
+      <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+        <div class="fixed-bottom" id="addButtonDiv">
+          <button id="addDep" type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#insertNewDepartment">
+            <i class="fa-solid fa-folder-plus fa-2xl"></i>
+          </button>
+        </div>
+
+        <!-- SEARCH AND FILTER DEPARTMENT -->
+        <div class="input-group mb-3">
+
+
+
+          <input type="text" class="form-control" id="departmentSearch" aria-label="Text input with dropdown button"
+            placeholder="Search Department..">
+
+        </div>
+
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <table class="table table-bordered">
+            <thead class="text-center">
+              <tr>
+                <!-- table headings -->
+                <th id="tableHead" class="tableHide" scope="col">ID</th>
+                <th id="tableHead" scope="col">Department</th>
+                <th id="tableHead" cope="col">Location</th>
+                <th id="tableHead" scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="departmentTable">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-------------------------------------- LOCATION TAB CONTENT -------------------------------------->
+      <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+        <div class="fixed-bottom" id="addButtonDiv">
+          <button id="addLoc" type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#insertNewLocation">
+            <i class="fa-solid fa-location-dot fa-xl"></i><b> +</b>
+          </button>
+        </div>
+
+        <!-- SEARCH AND FILTER LOCATION -->
+
+        <div class="input-group mb-3">
+
+          <input type="text" class="form-control" id="locationSearch" aria-label="Text input with dropdown button"
+            placeholder="Search Location..">
+
+        </div>
+
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <table class="table table-bordered">
+            <thead class="text-center">
+              <tr>
+                <!-- table headings -->
+                <th id="tableHead" scope="col">ID</th>
+                <th id="tableHead" scope="col">Location</th>
+                <th id="tableHead" scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="locationTable">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-------------------------------------- POP-UP MODALS -------------------------------------->
+
+    <!-------------------------------------- STAFF -------------------------------------->
+
+    <!-- ADD STAFF MEMBER -->
+    <div class="modal fade" id="insertNewPerson" tabindex="-1" aria-labelledby="insertNewPersonLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-primary addPersonModal">
+            <h4 class="modal-title text-white w-100 text-center" id="modalTitle">Add New Staff Member</h4>
+
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="addPerson">
+              <div class="input-group mb-3">
+                <span class="input-group-text">First Name</span>
+                <input type="text" class="form-control" name="firstName"
+                  required>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Last Name</span>
+                <input type="text" class="form-control" name="lastName"
+                  required>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Job Title</span>
+                <input type="text" class="form-control" name="jobTitle" placeholder="Optional">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Email</span>
+                <input type="email" class="form-control" name="email" required>
+              </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text">Department</label>
+                <select class="form-select departments" id="newSDeptDropdown" name="departmentID" required></select>
+              </div>
+            </form>
+            <div id="newStaffResponse"></div>
+          </div>
+          <div class="modal-footer">
+
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" form="addPerson">Add New Staff Member</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT STAFF MEMBER-->
+    <div class="modal fade" id="editPerson" tabindex="-1" aria-labelledby="editPersonLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-primary editPersonModal">
+            <h4 class="modal-title w-100 text-center text-white" id="modalTitle">Edit Staff Member</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editPersonForm">
+              <div class="input-group mb-3">
+                <span class="input-group-text">First Name</span>
+                <input type="text" class="form-control" name="firstName"
+                  required>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Last Name</span>
+                <input type="text" class="form-control" name="lastName" 
+                  required>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Job Title</span>
+                <input type="text" class="form-control" name="jobTitle" placeholder="Optional">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Email</span>
+                <input type="email" class="form-control" name="email" required>
+              </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text">Department</label>
+                <select class="form-select departments" name="departmentID" required></select>
+              </div>
+            </form>
+            <div id="editStaffResponse"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" form="editPersonForm">Submit Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-------------------------------------- DEPARTMENTS -------------------------------------->
+
+    <!-- ADD DEPARTMENT -->
+    <div class="modal fade" id="insertNewDepartment" tabindex="-1" aria-labelledby="insertNewDepartmentLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-primary addDepModal">
+            <h5 class="modal-title text-white w-100 text-center" id="insertNewDepartmentLabel">Add New Department</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="addDepartment">
+              <div class="input-group my-4">
+                <span class="input-group-text">Department Name</span>
+                <input type="text" class="form-control" name="name" required>
+              </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text">Choose Location</label>
+                <select class="form-select locations" name="locationID" required></select>
+              </div>
+            </form>
+            <div id="newDeptResponse"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" form="addDepartment">Add Department</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT DEPARTMENT -->
+    <div class="modal fade" id="editDepartment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header text-center bg-primary">
+            <h4 id="modalTitle" class="modal-title text-center w-100 text-white" id="editDepartmentLabel">
+              Edit Department
+            </h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editDepartmentForm">
+              <div class="input-group mb-3">
+
+                <select class="form-select departments" name="id" id="editDepartmentSelect" hidden></select>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">New Name</span>
+                <input type="text" id="editDepartmentName" class="form-control" name="name" required>
+              </div>
+              <div class="input-group my-3">
+                <label class="input-group-text">Choose Location</label>
+                <select class="form-select locations" id="editDepartmentLocation" name="locationID" required></select>
+              </div>
+            </form>
+            <div id="editDeptResponse"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" form="editDepartmentForm">
+              Submit Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--------------------------------------- LOCATIONS -------------------------------------->
+
+    <!-- ADD LOCATION -->
+    <div class="modal fade" id="insertNewLocation" tabindex="-1" aria-labelledby="insertNewLocationLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h4 class="modal-title text-white w-100 text-center" id="insertNewLocationLabel">Add New Location</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="addLocation">
+              <div class="input-group my-4">
+                <span class="input-group-text">Location Name</span>
+                <input type="text" class="form-control" name="name" required>
+              </div>
+            </form>
+            <div id="newLocResponse"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" form="addLocation">Add Location</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- EDIT LOCATION -->
+    <div class="modal fade" id="editLocation" tabindex="-1" aria-labelledby="editLocationLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h4 class="modal-title w-100 text-center text-white" id="editLocationLabel">Edit Location</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editLocationForm">
+              <div class="input-group my-3">
+                <!-- <label class="input-group-text">Location</label> -->
+                <select class="form-select locations" name="id" id="editLocationSelect" hidden></select>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Location Name</span>
+                <input type="text" id="editLocationName" class="form-control" name="name" required>
+              </div>
+            </form>
+            <div id="editLocResponse"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" form="editLocationForm">Submit Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="libs/js/popper.js"></script>
+  <script src="libs/js/bootstrap.min.js"></script>
+  <script src="libs/js/jquery-3.6.1.min.js"></script>
+  <script src="libs/alertify/alertify.min.js"></script>
+
+  <script src="libs/js/script.js"></script>
+
+</body>
+
+</html>
