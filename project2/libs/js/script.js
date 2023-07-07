@@ -92,7 +92,7 @@ function getAll() {
                 <td class="col-dep"><div class='d-inline-flex w-75  col-dep'>${staff.department}</div></td>
                 <td class="col-loc tableHide"><div class='d-inline-flex w-75 col-loc'>${staff.location}</div></td>
                 <td class="tableHide"><div class='d-md-inline-flex'>${staff.email}</div></td>
-                <td><div class="d-flex editContainer">
+                <td><div class="d-flex">
                 <button type="button" class="btn btn-success editPersonBtn mx-auto" data-bs-toggle="modal" data-bs-target="#editPerson" title="Edit"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
                 <button type="button" class="btn btn-danger deletePerson mx-auto" title="Delete"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
                 <td class="d-none">All Departments</td>
