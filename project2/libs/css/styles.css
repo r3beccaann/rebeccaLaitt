@@ -1,0 +1,185 @@
+body {
+    overflow-y: hidden;
+    
+}
+
+/* HEADER STYLING */
+
+#header {
+    color: #0275d8;
+    
+    
+}
+
+nav
+
+#tagline {
+    font-style: italic;
+   
+   
+}
+
+
+
+/* MAIN DIV STYLING  */
+
+#main {
+    padding-top: 10px;
+    height: 100vh;
+    background-color: rgb(173, 224, 255);
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 400px) {
+    #main {
+        border-radius: 0;
+    }
+    
+}
+
+/* LINKS TO PROFILE MODALS */
+
+.nav-link {
+    font-weight: bold;
+}
+
+
+
+/* EXTRA TABLE STYLING */
+
+#tableHead {
+    /* background-color: #9fd2ff; */
+    background-color: #0275d8;
+    color: white;
+    position:sticky;
+        top: 0 ;
+}
+
+
+
+/* SEARCH AND FILTER */
+
+#searchAndFilter {
+    display: flexbox;
+}
+
+/* EDIT AND DELETE BUTTONS */
+
+#icons {
+display: flex-box;
+justify-content: center;
+/* margin-left: 5px; 
+margin-right: 5px; */
+
+}
+
+/* ADD BUTTONS */
+
+#addButtonDiv {
+    left: 1300px;
+    bottom: 571px;
+}
+
+#addButton {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 5px 5px 10px #888888;
+}
+
+@media only screen and (max-width: 400px) {
+    #addButtonDiv {
+     left:301px;
+     bottom: 10px;
+    }
+    
+    #addButton {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        box-shadow: 5px 5px 10px #888888;
+    }
+}
+
+/* ALL MODALS */
+
+#modalTitle {
+    font-family:Arial, Helvetica, sans-serif;
+    
+   
+}
+
+/********** PRELOADER STYLING **********/
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    overflow: hidden;
+    background: #fff;
+  }
+  
+  #preloader:before {
+    content: "";
+    position: fixed;
+    top: calc(50% - 30px);
+    left: calc(50% - 30px);
+    border: 6px solid #f2f2f2;
+    border-top: 6px solid #1835f6;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: animate-preloader 1s linear infinite;
+    animation: animate-preloader 1s linear infinite;
+  }
+  
+  @-webkit-keyframes animate-preloader {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes animate-preloader {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  /* SCROLLABLE TABLE */
+
+  .my-custom-scrollbar {
+    position: relative;
+    height: 64vh;
+    overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+    display: block;
+    }
+
+    @media only screen and (max-width: 400px) {
+.tableHide {
+display: none;
+}
+    }
+
+
+
+
+
+
+
+
+
+
+
