@@ -88,10 +88,10 @@ function getAll() {
             response.data.forEach(staff => {
                 $("#staffTable").append(`
                 <tr>
-                <td id="personName"><div class='d-inline-flex w-75 overflow-auto searchPersonnel'>${staff.firstName + " " + staff.lastName}</div></td>
+                <td id="personName"><div class='d-inline-flex w-75 overflow-auto'>${staff.firstName + " " + staff.lastName}</div></td>
                 <td class="col-dep"><div class='d-inline-flex w-75  col-dep'>${staff.department}</div></td>
                 <td class="col-loc tableHide"><div class='d-inline-flex w-75 col-loc'>${staff.location}</div></td>
-                <td class="tableHide"><div class='d-md-inline-flex searchPersonnel'>${staff.email}</div></td>
+                <td class="tableHide"><div class='d-md-inline-flex'>${staff.email}</div></td>
                 <td><div class="d-flex editContainer">
                 <button type="button" class="btn btn-success editPersonBtn mx-auto" data-bs-toggle="modal" data-bs-target="#editPerson" title="Edit"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
                 <button type="button" class="btn btn-danger deletePerson mx-auto" title="Delete"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
@@ -154,8 +154,8 @@ function getAllDepartmentsTab() {
 
             response.data.forEach(dep => {
                 $("#departmentTable").append(`
-                <tr><td class="tableHide"><div class='d-inline-flex w-75 overflow-auto searchDepartment'>${dep.departmentId}</div></td>
-                <td><div class='d-inline-flex w-75 overflow-auto searchDepartment'>${dep.department}</div></td>
+                <tr><td class="tableHide d-none"><div class='d-inline-flex w-75 overflow-auto '>${dep.departmentId}</div></td>
+                <td><div class='d-inline-flex w-75 overflow-auto '>${dep.department}</div></td>
                 <td><div class='d-inline-flex w-75'>${dep.location}</div></td>                
                 <td><div class="d-flex"><button type="button" class="btn btn-success editDepartmentBtnImg editDepartmentBtn mx-auto" data-bs-toggle="modal" data-bs-target="#editDepartment" title="Edit"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
                 <button type="button" class="btn btn-danger deleteDepartmentBtnImg deleteDepartment mx-auto" title="Delete" data-id="${dep.departmentId}" id="${dep.departmentId}"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
@@ -194,8 +194,8 @@ function getAllLocations() {
                 $(".locations").append(`<option value=${loc.id}>${loc.name}</option>`);
 
                 $("#locationTable").append(`
-                <tr><td><div class='d-inline-flex w-75 overflow-auto searchLocation'>${loc.id}</div></td>
-                <td><div class='d-inline-flex w-75 searchLocation'>${loc.name}</div></td>                
+                <tr><td class="d-none"><div class='d-inline-flex w-75 overflow-auto'>${loc.id}</div></td>
+                <td><div class='d-inline-flex w-75'>${loc.name}</div></td>                
                 <td><div class="d-flex"><button type="button" class="btn btn-success updateLocBtn mx-auto" data-bs-toggle="modal" data-bs-target="#editLocation" title="Edit"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
                 <button type="button" class="btn btn-danger deleteLocationBtn mx-auto" title="Delete"  data-id="${loc.id}"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
                 <input class="d-none" type="number" value=${loc.id} /><input class="d-none" type="number" value=${loc.id} /></div></td></tr>`);
@@ -268,6 +268,8 @@ $("#addDepartment").submit(function (e) {
                                                      
                             $("#addDepartment")[0].reset(); // resets the addDepartment form
                             getAllDepartmentsTab(); // reloads the table
+                            getAll();
+                            getAllDepartmentsDD();
                          
                         }
                     },
@@ -335,6 +337,8 @@ $("#editPersonForm").submit(function (e) {
                                                   
                             $("#editPersonForm")[0].reset(); // resets the editPersonForm form
                             getAll(); // reloads the table
+                            // getAllDepartmentsDD();
+                            // getAllDepartmentsTab();
                        
                         }
                     },
@@ -552,6 +556,7 @@ $(document).on("click", ".deleteDepartment", function (e) {
                                     success: function (response) {
                                       
                                         getAllDepartmentsTab(); // reloads the table
+                                        getAllDepartmentsDD();
                                         alertify.set('notifier','position', 'top-right');
                     
                         alertify.success(`Successfully deleted ${depName}.`)
