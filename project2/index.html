@@ -36,8 +36,8 @@
     <div class="container justify-content-center">
       <a class="navbar-brand text-center" href="#">
         <h1 id="header">COMPANY DIRECTORY</h1>
-        <hr>
-        <h4 id="tagline">Manage your company direct.</h4>
+        <!-- <hr> -->
+        <!-- <h6 id="tagline">Manage your company direct.</h6> -->
       </a>
     </div>
   </nav>
@@ -73,12 +73,12 @@
       <!-------------------------------------- STAFF TAB CONTENT ------------------------------------->
       <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
         tabindex="0">
-        <div class="fixed-bottom" id="addButtonDiv">
+        <!-- <div class="fixed-bottom" id="addButtonDiv">
           <button id="addPersonnel" type="button" class="btn btn-primary" data-bs-toggle="modal"
             data-bs-target="#insertNewPerson">
             <i class="fa-solid fa-user-plus fa-xl"></i>
           </button>
-        </div>
+        </div> -->
 
         <!-- SEARCH AND FILTER STAFF -->
 
@@ -94,12 +94,17 @@
           <input type="text" class="form-control searchFilter" id="staffSearch"
             aria-label="Text input with dropdown button" placeholder="Search Staff..">
 
+            <button id="addPersonnel" type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#insertNewPerson">
+            <i class="fa-solid fa-user-plus fa-xl"></i>
+          </button>
+
         </div>
 
 
         <div class="table-wrapper-scroll-y my-custom-scrollbar">
           <table class="table table-bordered">
-            <thead class="text-center">
+            <thead class="text-center ">
               <tr>
                 <!-- table headings -->
                 <th id="tableHead" scope="col">Name</th>
@@ -124,12 +129,12 @@
 
       <!-------------------------------------- DEPARTMENT TAB CONTENT -------------------------------------->
       <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-        <div class="fixed-bottom" id="addButtonDiv">
+        <!-- <div class="fixed-bottom" id="addButtonDiv">
           <button id="addDep" type="button" class="btn btn-primary" data-bs-toggle="modal"
             data-bs-target="#insertNewDepartment">
             <i class="fa-solid fa-folder-plus fa-2xl"></i>
           </button>
-        </div>
+        </div> -->
 
         <!-- SEARCH AND FILTER DEPARTMENT -->
         <div class="input-group mb-3">
@@ -138,6 +143,11 @@
 
           <input type="text" class="form-control" id="departmentSearch" aria-label="Text input with dropdown button"
             placeholder="Search Department..">
+
+            <button id="addDep" type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#insertNewDepartment">
+            <i class="fa-solid fa-folder-plus fa-2xl"></i>
+          </button>
 
         </div>
 
@@ -161,12 +171,12 @@
 
       <!-------------------------------------- LOCATION TAB CONTENT -------------------------------------->
       <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-        <div class="fixed-bottom" id="addButtonDiv">
+        <!-- <div class="fixed-bottom" id="addButtonDiv">
           <button id="addLoc" type="button" class="btn btn-primary" data-bs-toggle="modal"
             data-bs-target="#insertNewLocation">
             <i class="fa-solid fa-location-dot fa-xl"></i><b> +</b>
           </button>
-        </div>
+        </div> -->
 
         <!-- SEARCH AND FILTER LOCATION -->
 
@@ -175,10 +185,17 @@
           <input type="text" class="form-control" id="locationSearch" aria-label="Text input with dropdown button"
             placeholder="Search Location..">
 
+            <button id="addLoc" type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#insertNewLocation">
+            <i class="fa-solid fa-location-dot fa-xl"></i><b> +</b>
+          </button>
+
+            
+
         </div>
 
-        <div class="table-wrapper-scroll-y my-custom-scrollbar">
-          <table class="table table-bordered">
+        <div class="table-wrapper">
+          <table class="table table-bordered ">
             <thead class="text-center">
               <tr>
                 <!-- table headings -->
@@ -211,27 +228,32 @@
           </div>
           <div class="modal-body">
             <form id="addPerson">
-              <div class="input-group mb-3">
-                <span class="input-group-text">First Name</span>
-                <input type="text" class="form-control" name="firstName"
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
+                <input type="text" class="form-control" name="firstName" id="addFirstName"
                   required>
+                  <label for="firstName">First Name</label>
               </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Last Name</span>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
                 <input type="text" class="form-control" name="lastName"
                   required>
+                  <label for="lastName">Last Name</label>
               </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Job Title</span>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
                 <input type="text" class="form-control" name="jobTitle" placeholder="Optional">
+                <label for="jobTitle">Job Title</label>
               </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Email</span>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
                 <input type="email" class="form-control" name="email" required>
+                <label for="email">Email</label>
               </div>
-              <div class="input-group mb-3">
-                <label class="input-group-text">Department</label>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
                 <select class="form-select departments" id="newSDeptDropdown" name="departmentID" required></select>
+                <label for="newSDeptDropdown">Department</label>
               </div>
             </form>
             <div id="newStaffResponse"></div>
@@ -257,27 +279,33 @@
           </div>
           <div class="modal-body">
             <form id="editPersonForm">
-              <div class="input-group mb-3">
-                <span class="input-group-text">First Name</span>
-                <input type="text" class="form-control" name="firstName"
+              <input type="hidden" id="personId">
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
+                <input type="text" class="form-control" name="firstName" id="editFirstName"
                   required>
+                  <label for="firstName">First Name</label>
               </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Last Name</span>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
                 <input type="text" class="form-control" name="lastName" 
                   required>
+                  <label for="lastName">Last Name</label>
               </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Job Title</span>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
                 <input type="text" class="form-control" name="jobTitle" placeholder="Optional">
+                <label for="jobTitle">Job Title</label>
               </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Email</span>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
                 <input type="email" class="form-control" name="email" required>
+                <label for="email">Email</label>
               </div>
-              <div class="input-group mb-3">
-                <label class="input-group-text">Department</label>
-                <select class="form-select departments" name="departmentID" required></select>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
+                <select class="form-select departments" name="departmentID" id='editDept' required></select>
+                <label for="departmentID">Department</label>
               </div>
             </form>
             <div id="editStaffResponse"></div>
@@ -305,13 +333,15 @@
           </div>
           <div class="modal-body">
             <form id="addDepartment">
-              <div class="input-group my-4">
-                <span class="input-group-text">Department Name</span>
-                <input type="text" class="form-control" name="name" required>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
+                <input type="text" class="form-control" name="name" id="deptName"required>
+                <label for="deptName">Department Name</label>
               </div>
-              <div class="input-group mb-3">
-                <label class="input-group-text">Choose Location</label>
-                <select class="form-select locations" name="locationID" required></select>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
+                <select class="form-select locations" name="locationID" id="locName" required></select>
+                <label for="locName">Location</label>
               </div>
             </form>
             <div id="newDeptResponse"></div>
@@ -338,17 +368,19 @@
           </div>
           <div class="modal-body">
             <form id="editDepartmentForm">
-              <div class="input-group mb-3">
+              <div class="form-floating mb-3">
 
                 <select class="form-select departments" name="id" id="editDepartmentSelect" hidden></select>
               </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">New Name</span>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
                 <input type="text" id="editDepartmentName" class="form-control" name="name" required>
+                <label for="editDepartmentName">Name</label>
               </div>
-              <div class="input-group my-3">
-                <label class="input-group-text">Choose Location</label>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
                 <select class="form-select locations" id="editDepartmentLocation" name="locationID" required></select>
+                <label for="editDepartmentLocation">Location</label>
               </div>
             </form>
             <div id="editDeptResponse"></div>
@@ -379,9 +411,10 @@
           </div>
           <div class="modal-body">
             <form id="addLocation">
-              <div class="input-group my-4">
-                <span class="input-group-text">Location Name</span>
-                <input type="text" class="form-control" name="name" required>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
+                <input type="text" class="form-control" name="name" id="newLocName" required>
+                <label for="newLocName">Name</label>
               </div>
             </form>
             <div id="newLocResponse"></div>
@@ -407,13 +440,14 @@
           </div>
           <div class="modal-body">
             <form id="editLocationForm">
-              <div class="input-group my-3">
+              <div class="form-floating mb-3">
                 <!-- <label class="input-group-text">Location</label> -->
                 <select class="form-select locations" name="id" id="editLocationSelect" hidden></select>
               </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Location Name</span>
+              <div class="form-floating mb-3">
+                <span class="form-floating-text"></span>
                 <input type="text" id="editLocationName" class="form-control" name="name" required>
+                <label for="editLocationName">Name</label>
               </div>
             </form>
             <div id="editLocResponse"></div>
