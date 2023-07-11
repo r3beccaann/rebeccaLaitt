@@ -1,7 +1,5 @@
 <?php
 
-
-
 	$executionStartTime = microtime(true);
 
 	include("config.php");
@@ -17,42 +15,41 @@
 		$output['status']['description'] = "database unavailable";
 		$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
 		$output['data'] = [];
-
+		
 		mysqli_close($conn);
 
 		echo json_encode($output);
-
+		
 		exit;
 
 	}	
 
-	if ($_POST["locationID"] == "getAll" AND $_POST['departmentID'] != "getAll"){
-		$query = 'SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, d.id as departmentId, l.name as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) WHERE p.departmentID = ' . $_POST['departmentID'] . '  ORDER BY p.lastName, p.firstName, d.name, l.name';
-	} else if ($_POST["locationID"] == "getAll" AND $_POST['departmentID'] == "getAll") {
-		$query = 'SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, d.id as departmentId, l.name as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) ORDER BY p.lastName, p.firstName, d.name, l.name';
-	} else if ($_POST["p_code"] == 1 AND $_POST['name'] != "All Departments") {
-		$query = 'SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, d.id as departmentId, l.name as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) WHERE d.locationID = ' . $_POST['locationID'] . ' AND d.name = "' . $_POST['name'] . '" ORDER BY p.lastName, p.firstName, d.name, l.name';
-	} else if ($_POST["p_code"] == 2 OR $_POST['name'] == "All Departments" ) {
-		$query = 'SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, d.id as departmentId, l.name as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) WHERE d.locationID = ' . $_POST['locationID'] . ' ORDER BY p.lastName, p.firstName, d.name, l.name';
-	}
+	// SQL statement accepts parameters and so is prepared to avoid SQL injection.
+	// $_POST used for development / debugging. Remember to change to $_POST for production
 
-	$result = $conn->query($query);
+	$query = $conn->prepare('SELECT id, name FROM location WHERE id =  ?');
+
+	$query->bind_param("i", $_POST['id']);
+
+	$query->execute();
 	
-	if (!$result) {
+	if (false === $query) {
 
 		$output['status']['code'] = "400";
 		$output['status']['name'] = "executed";
 		$output['status']['description'] = "query failed";	
 		$output['data'] = [];
 
-		mysqli_close($conn);
-
 		echo json_encode($output); 
-
+	
+		mysqli_close($conn);
 		exit;
 
 	}
-   
+
+
+	$result = $query->get_result();
+
    	$data = [];
 
 	while ($row = mysqli_fetch_assoc($result)) {
@@ -61,14 +58,16 @@
 
 	}
 
+	
+
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
 	$output['data'] = $data;
-	
-	mysqli_close($conn);
 
 	echo json_encode($output); 
+
+	mysqli_close($conn);
 
 ?>
