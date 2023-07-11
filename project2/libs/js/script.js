@@ -93,7 +93,7 @@ function getAll() {
                 <td class="col-loc tableHide"><div class='d-inline-flex w-75 col-loc'>${staff.location}</div></td>
                 <td class="tableHide"><div class='d-md-inline-flex'>${staff.email}</div></td>
                 <td><div class="d-flex">
-                <button type="button" class="btn btn-success editPersonBtn mx-auto" data-bs-toggle="modal" data-bs-target="#editPerson" title="Edit"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
+                <button type="button" class="btn btn-success editPersonBtn mx-auto" data-bs-toggle="modal" data-bs-target="#editPerson" data-id="${staff.id}title="Edit"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
                 <button type="button" class="btn btn-danger deletePerson mx-auto" title="Delete"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
                 <td class="d-none">All Departments</td>
                
@@ -157,7 +157,7 @@ function getAllDepartmentsTab() {
                 <tr><td class="tableHide d-none"><div class='d-inline-flex w-75 overflow-auto '>${dep.departmentId}</div></td>
                 <td><div class='d-inline-flex w-75 overflow-auto '>${dep.department}</div></td>
                 <td><div class='d-inline-flex w-75'>${dep.location}</div></td>                
-                <td><div class="d-flex"><button type="button" class="btn btn-success editDepartmentBtnImg editDepartmentBtn mx-auto" data-bs-toggle="modal" data-bs-target="#editDepartment" title="Edit"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
+                <td><div class="d-flex"><button type="button" class="btn btn-success editDepartmentBtnImg editDepartmentBtn mx-auto" data-bs-toggle="modal" data-bs-target="#editDepartment" data-id="${dep.departmentId}" id="${dep.locationId}"title="Edit"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
                 <button type="button" class="btn btn-danger deleteDepartmentBtnImg deleteDepartment mx-auto" title="Delete" data-id="${dep.departmentId}" id="${dep.departmentId}"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
                 <form id="deleteDepForm">
                 <td class="d-none" id="deptTabId" >${dep.departmentId}</td>
@@ -196,7 +196,7 @@ function getAllLocations() {
                 $("#locationTable").append(`
                 <tr><td class="d-none"><div class='d-inline-flex w-75 overflow-auto'>${loc.id}</div></td>
                 <td><div class='d-inline-flex w-75'>${loc.name}</div></td>                
-                <td><div class="d-flex"><button type="button" class="btn btn-success updateLocBtn mx-auto" data-bs-toggle="modal" data-bs-target="#editLocation" title="Edit"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
+                <td><div class="d-flex"><button type="button" class="btn btn-success updateLocBtn mx-auto" data-bs-toggle="modal" data-bs-target="#editLocation" data-id="${loc.id}" title="Edit"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
                 <button type="button" class="btn btn-danger deleteLocationBtn mx-auto" title="Delete"  data-id="${loc.id}"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
                 <input class="d-none" type="number" value=${loc.id} /><input class="d-none" type="number" value=${loc.id} /></div></td></tr>`);
             });
@@ -321,6 +321,10 @@ $("#addLocation").submit(function (e) {
 $("#editPersonForm").submit(function (e) {
     e.preventDefault(); // prevents normal submit behaviour
 
+    var personIDtoBeUpdate = $('#personId').text()
+    // console.log(personIDtoBeUpdate)
+
+
     alertify.confirm('Are you sure you want to edit this Staff Member?').setHeader('Attention!').set('onok', function(closeEvent) { 
    
                 $.ajax({
@@ -330,10 +334,15 @@ $("#editPersonForm").submit(function (e) {
                     success: function (response) {
                         
                         if (response) {
-                            $("#editStaffResponse").html("<div class='alert alert-success'>Successfully Edited Staff Member</div")
-                            setTimeout(function () { // success message w/ timeout
-                                $("#editStaffResponse").hide();
-                            }, 5000);
+                            // $("#editStaffResponse").html("<div class='alert alert-success'>Successfully Edited Staff Member</div")
+                            // setTimeout(function () { // success message w/ timeout
+                            //     $("#editStaffResponse").hide();
+                            // }, 5000);
+
+                            $('#editPerson').modal('hide')
+                            alertify.set('notifier','position', 'top-right');
+                        
+                            alertify.success('Successfully updated Staff Member.')
                                                   
                             $("#editPersonForm")[0].reset(); // resets the editPersonForm form
                             getAll(); // reloads the table
@@ -350,28 +359,84 @@ $("#editPersonForm").submit(function (e) {
                 return false; // preventing form submission normally
             });
 
+            
+
 // POPULATING EDIT MODAL W/ STAFF DATA
 
-$(document).on("click", ".editPersonBtn", function () {
-    globalThis.personIDtoBeUpdate = $(this).closest("tr").find("#personId").text(); // selects the tr element & gets personId
-    console.log(globalThis.personIDtoBeUpdate);
+// $(document).on("click", ".editPersonBtn", function () {
+//     globalThis.personIDtoBeUpdate = $(this).closest("tr").find("#personId").text(); // selects the tr element & gets personId
+//     console.log(globalThis.personIDtoBeUpdate);
 
-    let personDepId = $(this).closest("tr").find("#deptId").text(); // selects the tr element & gets deptId
-    console.log(personDepId);
+//     let personDepId = $(this).closest("tr").find("#deptId").text(); // selects the tr element & gets deptId
+//     console.log(personDepId);
 
 
-    $("#editPersonForm select").val(personDepId).trigger("change"); // triggers the change event
+//     $("#editPersonForm select").val(personDepId).trigger("change"); // triggers the change event
 
-    let fullName = $($(this).closest("tr").find("td")[0]).children("div").text().split(/(?=[A-Z])/); // splits text content into 2 parts
+//     let fullName = $($(this).closest("tr").find("td")[0]).children("div").text().split(/(?=[A-Z])/); // splits text content into 2 parts
 
-    $('#editPersonForm input[name="firstName"]').attr("value", fullName[0]); // sets the value of the input methods vv
-    $('#editPersonForm input[name="lastName"]').attr("value", fullName[1]);
-    $('#editPersonForm input[name="email"]').attr("value", $($(this).closest("tr").find("td")[3]).children("div").text());
-    $('#editPersonForm input[name="jobTitle"]').attr("value", $($(this).closest("tr").find("td")[8]).text());
+//     $('#editPersonForm input[name="firstName"]').attr("value", fullName[0]); // sets the value of the input methods vv
+//     $('#editPersonForm input[name="lastName"]').attr("value", fullName[1]);
+//     $('#editPersonForm input[name="email"]').attr("value", $($(this).closest("tr").find("td")[3]).children("div").text());
+//     $('#editPersonForm input[name="jobTitle"]').attr("value", $($(this).closest("tr").find("td")[8]).text());
 
+// })
+
+/// NEW EDIT STAFF POPULATING W/ DATA
+$('#editPerson').on('shown.bs.modal', function() {
+    $('#editFirstName').focus()
 })
 
+$('#editPerson').on('show.bs.modal', function(e) {
+
+    $.ajax({
+        url: 'libs/php/getPersonnelByID.php',
+        type: 'POST',
+        data: {
+            id:
+$(e.relatedTarget).attr('data-id')
+        },
+        success: function (result) {
+            // console.log(result)
+            // console.log(result.data.personnel[0].firstName)
+            var personIDtoBeUpdate = result.data.personnel[0].id
+            // console.log(personIDtoBeUpdate)
+            var resultCode = result.status.code
+
+            if (resultCode == 200) {
+                $('#personId').val(result.data.personnel[0].id);
+                $('#editPersonForm input[name="firstName"]').val(result.data.personnel[0].firstName);
+                $('#editPersonForm input[name="lastName"]').val(result.data.personnel[0].lastName);
+                $('#editPersonForm input[name="jobTitle"]').val(result.data.personnel[0].jobTitle);
+                $('#editPersonForm input[name="email"]').val(result.data.personnel[0].email);
+
+                $('#department').html('');
+                $.each(result.data.department, function() {
+                    $('department').append($("<option>", {
+                        value: this.id,
+                        text: this.name
+                    }));
+                })
+
+                $('#editDept').val(result.data.personnel[0].departmentID);
+            } else {
+                alertify.error('Error getting data.');  // error if no data received
+            }
+
+
+            },
+            error: function() {
+                alertify.error('Error getting data.');  // error if no data received
+
+        }})})
+       
+
 // EDIT DEPARTMENT 
+
+$('#editDepartment').on('shown.bs.modal', function() {
+    $('#editDepartmentName').focus()
+})
+
 
 $("#editDepartmentForm").submit(function (e) {
     e.preventDefault(); // prevents normal submit behaviour
@@ -385,16 +450,21 @@ $("#editDepartmentForm").submit(function (e) {
 
                     success: function (response) {
                       
-                        console.log(response)
+                        // console.log(response)
                         if (response) {
+
+                            $('#editDepartment').modal('hide')
+                            alertify.set('notifier','position', 'top-right');
+                        
+                            alertify.success('Successfully updated Department.')
                             getAllDepartmentsTab();
 
-                       
 
-                            $("#editDeptResponse").html("<div class='alert alert-success'>Successfully Edited Department</div")
-                            setTimeout(function () { // success message w/ timeout
-                                $("#editDeptResponse").hide();
-                            }, 5000);
+                            // $("#editDeptResponse").html("<div class='alert alert-success'>Successfully Edited Department</div")
+                            // setTimeout(function () { // success message w/ timeout
+                            //     $("#editDeptResponse").hide();
+                            // }, 5000);
+
                             $("#editDepartmentForm")[0].reset(); // resets the editDepartmentform
                             $("#editDepartmentForm input[name='name']").attr("value", $($(this).closest("tr").find("td")[1]).children("div").text());
                             getAllDepartmentsDD(); // reloads the table
@@ -409,40 +479,72 @@ $("#editDepartmentForm").submit(function (e) {
                 return false; // preventing form submission normally
             });
 
-$("#editDepartmentForm select.departments").change(function () { // listens for change event 
+// $("#editDepartmentForm select.departments").change(function () { // listens for change event 
   
+//     $.ajax({
+//         type: "POST",
+//         url: "libs/php/getDepartmentByID.php",
+//         data: { id: $(this).val() }, // id of the department in the select input
+//         success: function (response) {
+//             // console.log(response)
+//             let locationByID = response.data[0].locationID; // assigning locationid to location id of the department
+//             $(`#editDepartmentForm select.locations option[value=${locationByID}]`).prop("selected", true); //selects the option in the select that has the same value as the above variable
+//         }
+//     });
+
+//     let department = $("#editDepartmentForm select.departments option:selected").text();
+//     $("#editDepartmentForm input").attr("value", department); // assigned to the departments select input
+// });
+
+// // POPULATING EDIT MODAL W/ DEPARTMENT DATA
+
+// $(document).on("click", ".editDepartmentBtn", function () {
+  
+//     getAllDepartmentsDD(); // populating dropdown 
+//     let row = $(this).closest("tr").find("td");
+//     let rowId = $(row).eq(0).text();
+//     // console.log(rowId);
+//     $("#editDepartmentForm select").val(rowId).trigger("change"); //sets the select value to the department id
+
+// })
+
+/// NEW EDIT DEPARTMENT POPULATING W/ DATA
+
+$('#editDepartment').on('show.bs.modal', function(e) {
     $.ajax({
-        type: "POST",
-        url: "libs/php/getDepartmentByID.php",
-        data: { id: $(this).val() }, // id of the department in the select input
-        success: function (response) {
-            let locationByID = response.data[0].locationID; // assigning locationid to location id of the department
-            $(`#editDepartmentForm select.locations option[value=${locationByID}]`).prop("selected", true); //selects the option in the select that has the same value as the above variable
-        }
-    });
+        url: 'libs/php/getDepartmentByID.php',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {
+            id: $(e.relatedTarget).attr('data-id')
+        },
+        success: function (result) {
+            // console.log(result)
 
-    let department = $("#editDepartmentForm select.departments option:selected").text();
-    $("#editDepartmentForm input").attr("value", department); // assigned to the departments select input
-});
+            var resultCode = result.status.code
+            if (resultCode == 200) {
+                $('#editDepartmentSelect').val(result.data[0].id)
+                $('#editDepartmentName').val(result.data[0].name);
+                $('#editDepartmentLocation').val(result.data[0].locationID)
+            } else {
+                alertify.error('Error getting data.');  // error if no data received
+            }
 
-// POPULATING EDIT MODAL W/ DEPARTMENT DATA
 
-$(document).on("click", ".editDepartmentBtn", function () {
-  
-    getAllDepartmentsDD(); // populating dropdown 
-    let row = $(this).closest("tr").find("td");
-    let rowId = $(row).eq(0).text();
-    // console.log(rowId);
-    $("#editDepartmentForm select").val(rowId).trigger("change"); //sets the select value to the department id
+            },
+            error: function() {
+                alertify.error('Error getting data.');  // error if no data received
 
-})
+        }})})
+    
+
 
 // EDIT LOCATION 
 
-$("#editLocationForm select").change(function () { // populates input of editLocationForm to location being edited
-    let location = $("#editLocationForm select option:selected").text();
-    $("#editLocationForm input").attr("value", location);
-})
+// $("#editLocationForm select").change(function () { // populates input of editLocationForm to location being edited
+//     let location = $("#editLocationForm select option:selected").text();
+//     $("#editLocationForm input").attr("value", location);
+// })
 
 $("#editLocationForm").submit(function (e) {
     e.preventDefault(); // prevents normal submit behaviour
@@ -456,11 +558,16 @@ $("#editLocationForm").submit(function (e) {
 
                     success: function (response) {
                         if (response) {
+
+                            $('#editLocation').modal('hide')
+                            alertify.set('notifier','position', 'top-right');
+                        
+                            alertify.success('Successfully updated Location.')
                           
-                            $("#editLocResponse").html("<div class='alert alert-success'>Successfully Edited Location</div")
-                            setTimeout(function () { // success message w/ timeout
-                                $("#editLocResponse").hide();
-                            }, 5000);
+                            // $("#editLocResponse").html("<div class='alert alert-success'>Successfully Edited Location</div")
+                            // setTimeout(function () { // success message w/ timeout
+                            //     $("#editLocResponse").hide();
+                            // }, 5000);
                             $("#editLocationForm")[0].reset(); // resets the editLocationform
                             $("#editLocationForm input").attr("value", "");
                             getAllLocations(); // reloads the table
@@ -475,14 +582,48 @@ $("#editLocationForm").submit(function (e) {
             });
                 
 
-$(document).on("click", ".updateLocBtn", function () { 
+// $(document).on("click", ".updateLocBtn", function () { 
 
-    let row = $(this).closest("tr").find("td");
-    let rowId = $(row).eq(0).text();
-    //console.log(rowId);
-    $("#editLocationForm select").val(rowId).trigger("change"); // changing the value of the locationID select input in the editLocationForm form
+//     let row = $(this).closest("tr").find("td");
+//     let rowId = $(row).eq(0).text();
+//     //console.log(rowId);
+//     $("#editLocationForm select").val(rowId).trigger("change"); // changing the value of the locationID select input in the editLocationForm form
 
+// })
+
+
+// new edit location populating test thingy lol
+$('#editLocation').on('shown.bs.modal', function() {
+    $('#editLocationName').focus()
 })
+
+$('#editLocation').on('show.bs.modal', function (e) {
+    $.ajax({
+        url: 'libs/php/getLocById.php',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {
+            id: 
+            $(e.relatedTarget).attr('data-id')
+        },
+        success: function (result) {
+            // console.log(result)
+            var resultCode = result.status.code
+            if (resultCode == 200) {
+            $('#editLocationSelect').val(result.data[0].id)
+            $('#editLocationName').val(result.data[0].name)
+        } else {
+            alertify.error('Error getting data.');  // error if no data received
+        }
+
+
+        },
+        error: function() {
+            alertify.error('Error getting data.');  // error if no data received
+
+    }})})
+   
+
 
 ////////////////////////////////// DELETE STAFF, DEPARTMENTS & LOCATIONS ////////////////////////////////
 
@@ -526,7 +667,7 @@ $(document).on("click", ".deleteDepartment", function (e) {
 
 
     let depToBeDeleted = $(this).closest("tr").find("#deptTabId").text();
-    console.log(depToBeDeleted)
+    // console.log(depToBeDeleted)
 
     $.ajax({
         url: "libs/php/deleteDepartment.php",
