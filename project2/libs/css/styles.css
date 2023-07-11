@@ -1,7 +1,8 @@
-body {
-    overflow-y: hidden;
-    
-}
+/* body { */
+    /* overflow-y: hidden;  
+    max-height: 100%; */
+    /* height: 100vh; */
+/* } */
 
 /* HEADER STYLING */
 
@@ -21,11 +22,14 @@ nav
 
 
 
+
+
 /* MAIN DIV STYLING  */
 
 #main {
     padding-top: 10px;
-    height: 100vh;
+    padding-bottom: 10px;
+    height: 100%;
     background-color: rgb(173, 224, 255);
     border-radius: 10px;
 }
@@ -43,7 +47,22 @@ nav
     font-weight: bold;
 }
 
+/* #personName {
+    cursor: pointer;
+    
+    font-weight: bold;
+}
 
+#departmentName {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#locationName {
+    cursor: pointer;
+    
+    font-weight: bold;
+} */
 
 /* EXTRA TABLE STYLING */
 
@@ -52,8 +71,17 @@ nav
     background-color: #0275d8;
     color: white;
     position:sticky;
-        top: 0 ;
+        top: -1px;
 }
+
+/* table {
+    max-height: 100vh;
+} */
+
+/* tbody{
+    max-height: 100vh;
+    overflow: auto;
+    } */
 
 
 
@@ -68,17 +96,19 @@ nav
 #icons {
 display: flex-box;
 justify-content: center;
+
 /* margin-left: 5px; 
 margin-right: 5px; */
 
 }
 
+
 /* ADD BUTTONS */
 
-#addButtonDiv {
+/* #addButtonDiv {
     left: 1300px;
     bottom: 571px;
-}
+} */
 
 #addButton {
     padding-top: 10px;
@@ -87,10 +117,10 @@ margin-right: 5px; */
 }
 
 @media only screen and (max-width: 400px) {
-    #addButtonDiv {
+    /* #addButtonDiv {
      left:301px;
      bottom: 10px;
-    }
+    } */
     
     #addButton {
         padding-top: 10px;
@@ -158,14 +188,21 @@ margin-right: 5px; */
 
   /* SCROLLABLE TABLE */
 
-  .my-custom-scrollbar {
+  /* .my-custom-scrollbar {
     position: relative;
-    height: 64vh;
+    /* height: 100vh; */
+    /* min-height: 100%; */
+    /* height: 100%; */
+    /* max-height: 750px;
     overflow: auto;
-    }
+    } */ 
+    
     .table-wrapper-scroll-y {
-    display: block;
-    }
+        /* Set the desired height for the table wrapper */
+        max-height: calc(100vh - 200px); /* Adjust the value as needed */
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
 
     @media only screen and (max-width: 400px) {
 .tableHide {
@@ -173,8 +210,8 @@ display: none;
 }
     }
 
-
-
+  
+       
 
 
 
