@@ -4,6 +4,10 @@
     /* height: 100vh; */
 /* } */
 
+body {
+    overflow-y: hidden;
+}
+
 /* HEADER STYLING */
 
 #header {
@@ -32,6 +36,7 @@ nav
     height: 100%;
     background-color: rgb(173, 224, 255);
     border-radius: 10px;
+    position: sticky;
 }
 
 @media only screen and (max-width: 400px) {
@@ -89,6 +94,7 @@ nav
 
 #searchAndFilter {
     display: flexbox;
+    /* position: sticky; */
 }
 
 /* EDIT AND DELETE BUTTONS */
@@ -211,7 +217,35 @@ display: none;
     }
 
   
-       
+        /* .table-wrapper {
+            max-height: 750px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+      
+      
+      table {
+        text-align: left;
+        position: relative;
+        border-collapse: collapse;
+      } */
+      
+      
+      /* .table thead {
+        position: sticky;
+        top: -2px;
+        z-index: 15;
+      } */
+
+
+/* #tableDiv {
+    margin-top: 5px;   
+    right: 0;
+    max-width: 1200px;
+    left: 0;
+    bottom: 0;
+    height: calc(100vh - 12rem);
+} */
 
 
 
